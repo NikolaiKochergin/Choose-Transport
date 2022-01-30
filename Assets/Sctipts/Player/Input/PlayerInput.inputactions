@@ -1,0 +1,58 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "MoveLR",
+            "id": "152ed535-ef29-45cb-ac0a-7954e2d4352d",
+            "actions": [
+                {
+                    "name": "TouchPos",
+                    "type": "Value",
+                    "id": "92b3e33a-5750-488c-a6b5-fcf911ab563a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TouchDown",
+                    "type": "Button",
+                    "id": "6a63a335-f524-454b-8912-564e9511239c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5cd386c0-1359-4bb9-93e1-d85f2ad6e329",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "TouchPos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa228017-f3bc-4cde-9d0c-d9dc1a655f62",
+                    "path": "<Pointer>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "TouchDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Player",
+            "bindingGroup": "Player",
+            "devices": []
+        }
+    ]
+}
