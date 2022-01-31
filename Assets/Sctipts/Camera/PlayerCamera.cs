@@ -1,16 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;   
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    private const float s_speedMultiplier = 10f;
+    
     [SerializeField] private Player _player;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _cutSceneDuration;
     [SerializeField] private float _cutSceneSpeed;
     [SerializeField] private float _rotateSpeed;
+    [SerializeField] [Min(0.4f)] private float _turnDuration;
     [SerializeField] private Transform _rotateFollowPosition;
-    [SerializeField] private float _moveRotateSpeed;
 
     private bool _needFollow = true;
     private Vector3 _offset;
@@ -21,7 +22,7 @@ public class PlayerCamera : MonoBehaviour
     {
         _player.Failed += OnPlayerFailed;
         _player.ShowCutScene += ShowCutScene;
-        _player.RotateZoneEnded += OnPlayerRotate;        
+        _player.RotateZoneEnded += OnPlayerRotate;
 
         _offset = _player.transform.position - transform.position;
         _currentDirection = new Vector3(1, 0, 0);
@@ -39,7 +40,7 @@ public class PlayerCamera : MonoBehaviour
         if (_needFollow)
         {
             Vector3 desiredPosition = _player.transform.position - _offset;
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, _moveSpeed );
+            transform.position = Vector3.Lerp(transform.position, desiredPosition, _moveSpeed * Time.fixedDeltaTime);
         }
     }
 
@@ -73,15 +74,21 @@ public class PlayerCamera : MonoBehaviour
 
             if (_currentDirection.x == 1)
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + _cutSceneSpeed, transform.position.y, transform.position.z), _rotateSpeed);
+                transform.position = Vector3.Lerp(transform.position,
+                    new Vector3(transform.position.x + _cutSceneSpeed, transform.position.y, transform.position.z),
+                    _rotateSpeed * Time.fixedDeltaTime);
             }
             else if (_currentDirection.z == 1)
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + _cutSceneSpeed), _rotateSpeed);
+                transform.position = Vector3.Lerp(transform.position,
+                    new Vector3(transform.position.x, transform.position.y, transform.position.z + _cutSceneSpeed),
+                    _rotateSpeed * Time.fixedDeltaTime);
             }
             else if (_currentDirection.z == -1)
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z - _cutSceneSpeed), _rotateSpeed);
+                transform.position = Vector3.Lerp(transform.position,
+                    new Vector3(transform.position.x, transform.position.y, transform.position.z - _cutSceneSpeed),
+                    _rotateSpeed * Time.fixedDeltaTime);
             }
 
             yield return new WaitForFixedUpdate();
@@ -90,7 +97,6 @@ public class PlayerCamera : MonoBehaviour
 
     private void OnPlayerRotate(RotateZone zone)
     {
-
         _rotate = Rotate(zone.RotateDirection);
 
         StartCoroutine(_rotate);
@@ -108,41 +114,56 @@ public class PlayerCamera : MonoBehaviour
             if (_currentDirection.x == 1)
                 _currentDirection = new Vector3(0, 0, 1);
             else if (_currentDirection.z == -1)
-                _currentDirection = new Vector3(1,0,0);
+                _currentDirection = new Vector3(1, 0, 0);
         }
     }
 
     private IEnumerator Rotate(int direction)
     {
+        float yTargetRotation;
 
-        float yTargetRotation = 0;
-
-        if(direction == 1)        
-            yTargetRotation = transform.rotation.eulerAngles.y + 90;        
+        if (direction == 1)
+            yTargetRotation = transform.rotation.eulerAngles.y + 90;
         else
             yTargetRotation = transform.rotation.eulerAngles.y - 90;
-            
+
         _needFollow = false;
 
-        Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yTargetRotation, transform.rotation.eulerAngles.z);
 
-            while (yTargetRotation != transform.rotation.eulerAngles.y)
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotateSpeed);
-                yield return null;
-            }
+        Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yTargetRotation,
+            transform.rotation.eulerAngles.z);
 
-        _offset = _player.transform.position - transform.position;
+        float rotateSpeed = Quaternion.Angle(transform.rotation, targetRotation) / _turnDuration;
+        float currentTime = _turnDuration;
+
+        while (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            transform.rotation =
+                Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.rotation = targetRotation;
+
+        _offset = _player.transform.position - _rotateFollowPosition.position;
         _needFollow = true;
     }
 
     private IEnumerator MoveToRotatePosition(Transform targetPosition)
     {
-        while (transform.position != targetPosition.position)
+        float currentTime = _turnDuration;
+        
+        while (currentTime > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition.position, _moveRotateSpeed);
-
+            currentTime -= Time.deltaTime;
+            
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition.position,
+                _moveSpeed * s_speedMultiplier * Time.deltaTime);
+    
             yield return null;
         }
+    
+        transform.position = _rotateFollowPosition.position;
     }
 }
