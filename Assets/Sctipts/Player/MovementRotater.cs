@@ -29,7 +29,7 @@ public class MovementRotater : MonoBehaviour
     private void Rotate()
     {
         _rotationTarget = GetTargetRotate();            
-        _transform.rotation = Quaternion.Lerp(_transform.rotation, Quaternion.Euler(0,_rotationTarget,0), _rotationSpeed * Time.deltaTime);
+        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Quaternion.Euler(0,_rotationTarget,0), _rotationSpeed * Time.fixedDeltaTime);
     }
 
     private float GetTargetRotate()

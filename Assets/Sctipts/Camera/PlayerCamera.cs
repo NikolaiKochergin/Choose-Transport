@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    private const float s_speedMultiplier = 10f;
-    
     [SerializeField] private Player _player;
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] private Transform _camera;
+    [SerializeField] [Range(0f, 1f)] private float _moveSpeed;
     [SerializeField] private float _cutSceneDuration;
-    [SerializeField] private float _cutSceneSpeed;
-    [SerializeField] private float _rotateSpeed;
-    [SerializeField] [Min(0.4f)] private float _turnDuration;
-    [SerializeField] private Transform _rotateFollowPosition;
+    [SerializeField] [Min(0.1f)] private float _turnDuration;
 
     private bool _needFollow = true;
     private Vector3 _offset;
@@ -24,7 +20,7 @@ public class PlayerCamera : MonoBehaviour
         _player.ShowCutScene += ShowCutScene;
         _player.RotateZoneEnded += OnPlayerRotate;
 
-        _offset = _player.transform.position - transform.position;
+        transform.position = _player.transform.position;
         _currentDirection = new Vector3(1, 0, 0);
     }
 
@@ -39,8 +35,7 @@ public class PlayerCamera : MonoBehaviour
     {
         if (_needFollow)
         {
-            Vector3 desiredPosition = _player.transform.position - _offset;
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, _moveSpeed * Time.fixedDeltaTime);
+            transform.position = Vector3.Lerp(transform.position, _player.transform.position, _moveSpeed);
         }
     }
 
@@ -67,31 +62,10 @@ public class PlayerCamera : MonoBehaviour
         while (elapsedTime < _cutSceneDuration)
         {
             elapsedTime += Time.deltaTime;
+            
+            _camera.LookAt(_player.transform);
 
-            Vector3 direction = targetPosition.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.04f);
-
-            if (_currentDirection.x == 1)
-            {
-                transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x + _cutSceneSpeed, transform.position.y, transform.position.z),
-                    _rotateSpeed * Time.fixedDeltaTime);
-            }
-            else if (_currentDirection.z == 1)
-            {
-                transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, transform.position.y, transform.position.z + _cutSceneSpeed),
-                    _rotateSpeed * Time.fixedDeltaTime);
-            }
-            else if (_currentDirection.z == -1)
-            {
-                transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x, transform.position.y, transform.position.z - _cutSceneSpeed),
-                    _rotateSpeed * Time.fixedDeltaTime);
-            }
-
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
     }
 
@@ -100,7 +74,6 @@ public class PlayerCamera : MonoBehaviour
         _rotate = Rotate(zone.RotateDirection);
 
         StartCoroutine(_rotate);
-        StartCoroutine(MoveToRotatePosition(_rotateFollowPosition));
 
         if (zone.RotateDirection == 1)
         {
@@ -127,9 +100,6 @@ public class PlayerCamera : MonoBehaviour
         else
             yTargetRotation = transform.rotation.eulerAngles.y - 90;
 
-        _needFollow = false;
-
-
         Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yTargetRotation,
             transform.rotation.eulerAngles.z);
 
@@ -145,25 +115,5 @@ public class PlayerCamera : MonoBehaviour
         }
 
         transform.rotation = targetRotation;
-
-        _offset = _player.transform.position - _rotateFollowPosition.position;
-        _needFollow = true;
-    }
-
-    private IEnumerator MoveToRotatePosition(Transform targetPosition)
-    {
-        float currentTime = _turnDuration;
-        
-        while (currentTime > 0)
-        {
-            currentTime -= Time.deltaTime;
-            
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition.position,
-                _moveSpeed * s_speedMultiplier * Time.deltaTime);
-    
-            yield return null;
-        }
-    
-        transform.position = _rotateFollowPosition.position;
     }
 }
