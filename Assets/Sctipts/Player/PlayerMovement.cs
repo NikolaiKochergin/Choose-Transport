@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,12 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private float _roadWeight;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _forwardSpeed;
     [SerializeField] private float _horizontalSpeed;
+    [SerializeField] private float _turnSpeed;
     [SerializeField] private Player _player;
-
-    //[SerializeField] private float _minZPosition;
-    // [SerializeField] private float _maxZPosition;
 
     [SerializeField] private MovementRotater _rotater;
 
@@ -23,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _yHitSpeed;
 
     [SerializeField] private float _finishMovementSpeed;
-    // [SerializeField] private float _minDistanseToMove;
-    // [SerializeField] private GameObject _camera;
 
     [SerializeField] private float _testSpeed;
     [SerializeField] private bool _Test;
@@ -34,13 +28,13 @@ public class PlayerMovement : MonoBehaviour
     private float _minHorizontalPosition;
     private float _maxHorizontalPosition;
     private float _targetYPosition;
-    private float _direction;
+    private float _currentHorizontalDirection;
 
     private bool _canMove = false;
     private IEnumerator _hitMove;
     private IEnumerator _exceptionSelectedTransport;
     private IEnumerator _rotateToFinish;
-    private Vector3 _currentMoveDirection;
+    private Vector3 _currentRoadDirection;
 
     public event UnityAction Finished;
 
@@ -63,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         if (_Test)
             _horizontalSpeed = _testSpeed;
 
-        _currentMoveDirection = new Vector3(1, 0, 0);
+        _currentRoadDirection = new Vector3(1, 0, 0);
         _targetYPosition = transform.position.y;
         _minHorizontalPosition = transform.position.z - _roadWeight;
         _maxHorizontalPosition = transform.position.z + _roadWeight;
@@ -94,61 +88,49 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        _direction = _playerInput.InputDirection();
+        Vector3 currentDirection = Vector3.zero;
 
-        float targetHorizontalPosition = -_direction * _horizontalSpeed;
+        float targetHorizontalDirection = _playerInput.InputDirection() * -1f;
 
-        targetHorizontalPosition = GetTargetZPosition(targetHorizontalPosition);
+        _currentHorizontalDirection = Mathf.MoveTowards(_currentHorizontalDirection, targetHorizontalDirection,
+            _turnSpeed * Time.fixedDeltaTime);
 
-        Vector3 targetPosition = transform.position;
-
-        if (_currentMoveDirection.x == 1)
+        if (_currentRoadDirection.x == 1)
         {
-            targetPosition = new Vector3(transform.position.x + _speed * Time.fixedDeltaTime, _targetYPosition,
-                transform.position.z + targetHorizontalPosition * Time.fixedDeltaTime);
+            currentDirection = new Vector3(_forwardSpeed, 0, _currentHorizontalDirection * _horizontalSpeed) *
+                               Time.fixedDeltaTime;
         }
-        else if (_currentMoveDirection.z == -1)
+        else if (_currentRoadDirection.z == -1)
         {
-            targetPosition = new Vector3(transform.position.x + targetHorizontalPosition * Time.fixedDeltaTime,
-                _targetYPosition, transform.position.z - _speed * Time.fixedDeltaTime);
+            currentDirection = new Vector3(_currentHorizontalDirection * _horizontalSpeed, 0, -_forwardSpeed) *
+                               Time.fixedDeltaTime;
         }
-        else if (_currentMoveDirection.z == 1)
+        else if (_currentRoadDirection.z == 1)
         {
-            targetPosition = new Vector3(transform.position.x - targetHorizontalPosition * Time.fixedDeltaTime,
-                _targetYPosition, transform.position.z + _speed * Time.fixedDeltaTime);
+            currentDirection = new Vector3(-_currentHorizontalDirection * _horizontalSpeed, 0, _forwardSpeed) *
+                               Time.fixedDeltaTime;
         }
 
-        transform.position = targetPosition;
-
-        //transform.localPosition = Vector3.Lerp(transform.position, targetPosition, 0.01f);
-        //transform.localPosition = Vector3.MoveTowards(transform.position, targetPosition, _speed * Time.fixedDeltaTime);
+        transform.position =
+            new Vector3(transform.position.x, _targetYPosition, transform.position.z) + currentDirection;
+        
+        _rotater.LookAt(currentDirection);
+        
+        ClampPlayerMovement();
     }
 
-    private float GetTargetZPosition(float zPosition)
+    private void ClampPlayerMovement()
     {
-        if (_currentMoveDirection.x == 1)
+        if (_currentRoadDirection.x == 1)
         {
-            if (transform.position.z > _maxHorizontalPosition)
-                zPosition = -_horizontalSpeed;
-            else if (transform.position.z < _minHorizontalPosition)
-                zPosition = _horizontalSpeed;
+            float zPosition = Mathf.Clamp(transform.position.z, _minHorizontalPosition, _maxHorizontalPosition);
+            transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
         }
-        else if (_currentMoveDirection.z == 1)
+        else
         {
-            if (transform.position.x > _maxHorizontalPosition)
-                zPosition = _horizontalSpeed;
-            else if (transform.position.x < _minHorizontalPosition)
-                zPosition = -_horizontalSpeed;
+            float xPosition = Mathf.Clamp(transform.position.x, _minHorizontalPosition, _maxHorizontalPosition);
+            transform.position = new Vector3(xPosition, transform.position.y, transform.position.z);
         }
-        else if (_currentMoveDirection.z == -1)
-        {
-            if (transform.position.x > _maxHorizontalPosition)
-                zPosition = -_horizontalSpeed;
-            else if (transform.localPosition.x < _minHorizontalPosition)
-                zPosition = _horizontalSpeed;
-        }
-
-        return zPosition;
     }
 
     public void StopMove()
@@ -177,30 +159,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if (zone.RotateDirection == 1)
         {
-            if (_currentMoveDirection.x == 1)
+            if (_currentRoadDirection.x == 1)
             {
-                _currentMoveDirection = new Vector3(0, 0, -1);
+                _currentRoadDirection = new Vector3(0, 0, -1);
                 _minHorizontalPosition = transform.position.x - _roadWeight;
                 _maxHorizontalPosition = transform.position.x + _roadWeight;
             }
-            else if (_currentMoveDirection.z == 1)
+            else if (_currentRoadDirection.z == 1)
             {
-                _currentMoveDirection = new Vector3(1, 0, 0);
+                _currentRoadDirection = new Vector3(1, 0, 0);
                 _minHorizontalPosition = transform.position.z - _roadWeight;
                 _maxHorizontalPosition = transform.position.z + _roadWeight;
             }
         }
         else
         {
-            if (_currentMoveDirection.x == 1)
+            if (_currentRoadDirection.x == 1)
             {
-                _currentMoveDirection = new Vector3(0, 0, 1);
+                _currentRoadDirection = new Vector3(0, 0, 1);
                 _minHorizontalPosition = transform.position.x - _roadWeight;
                 _maxHorizontalPosition = transform.position.x + _roadWeight;
             }
-            else if (_currentMoveDirection.z == -1)
+            else if (_currentRoadDirection.z == -1)
             {
-                _currentMoveDirection = new Vector3(1, 0, 0);
+                _currentRoadDirection = new Vector3(1, 0, 0);
                 _minHorizontalPosition = transform.position.z - _roadWeight;
                 _maxHorizontalPosition = transform.position.z + _roadWeight;
             }
@@ -246,17 +228,17 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float progress = elapsedTime / _hitJumpDuration;
 
-            if (_currentMoveDirection.x == 1)
+            if (_currentRoadDirection.x == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x,
                         _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
                         transform.position.z + _zHitSpeed * Time.deltaTime * direction), 0.05f);
-            else if (_currentMoveDirection.z == 1)
+            else if (_currentRoadDirection.z == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x + _zHitSpeed * Time.deltaTime * direction,
                         _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
                         transform.position.z), 0.05f);
-            else if (_currentMoveDirection.z == -1)
+            else if (_currentRoadDirection.z == -1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x - _zHitSpeed * Time.deltaTime * direction,
                         _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
@@ -277,17 +259,17 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float progress = elapsedTime / _hitJumpDuration;
 
-            if (_currentMoveDirection.x == 1)
+            if (_currentRoadDirection.x == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(startThrowBackPosition.x - 5,
                         _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
                         transform.position.z), 0.05f);
-            else if (_currentMoveDirection.z == 1)
+            else if (_currentRoadDirection.z == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x,
                         _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
                         startThrowBackPosition.z - 5), 0.05f);
-            else if (_currentMoveDirection.z == -1)
+            else if (_currentRoadDirection.z == -1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x,
                         _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
@@ -373,9 +355,9 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion finishRotation;
 
-        if (_currentMoveDirection.x == 1)
+        if (_currentRoadDirection.x == 1)
             finishRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 90, transform.rotation.eulerAngles.z);
-        else if (_currentMoveDirection.z == 1)
+        else if (_currentRoadDirection.z == 1)
             finishRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);
         else
             finishRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 180, transform.rotation.eulerAngles.z);
@@ -394,17 +376,17 @@ public class PlayerMovement : MonoBehaviour
     {
         Quaternion targetFinishRotation = new Quaternion();
         _rotater.enabled = false;
-        if (_currentMoveDirection.x == 1)
+        if (_currentRoadDirection.x == 1)
         {
             targetFinishRotation =
                 Quaternion.Euler(transform.rotation.eulerAngles.x, -90, transform.rotation.eulerAngles.z);
         }
-        else if (_currentMoveDirection.z == 1)
+        else if (_currentRoadDirection.z == 1)
         {
             targetFinishRotation =
                 Quaternion.Euler(transform.rotation.eulerAngles.x, 180, transform.rotation.eulerAngles.z);
         }
-        else if (_currentMoveDirection.z == -1)
+        else if (_currentRoadDirection.z == -1)
         {
             targetFinishRotation =
                 Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);

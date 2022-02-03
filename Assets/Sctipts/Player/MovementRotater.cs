@@ -11,11 +11,11 @@ public class MovementRotater : MonoBehaviour
 
     private float _rotationTarget;
     private float _defaultRotation;
-    private bool _canRotate=true;
+    private bool _canRotate = true;
 
     private void Start()
     {
-        _defaultRotation = _transform.rotation.eulerAngles.y;        
+        _defaultRotation = _transform.rotation.eulerAngles.y;
     }
 
     private void FixedUpdate()
@@ -26,10 +26,16 @@ public class MovementRotater : MonoBehaviour
         }
     }
 
+    public void LookAt(Vector3 direction)
+    {
+        _transform.LookAt(_transform.position + direction);
+    }
+
     private void Rotate()
     {
-        _rotationTarget = GetTargetRotate();            
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Quaternion.Euler(0,_rotationTarget,0), _rotationSpeed * Time.fixedDeltaTime);
+        _rotationTarget = GetTargetRotate();
+        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Quaternion.Euler(0, _rotationTarget, 0),
+            _rotationSpeed * Time.fixedDeltaTime);
     }
 
     private float GetTargetRotate()
@@ -41,7 +47,7 @@ public class MovementRotater : MonoBehaviour
             targetRotation = _defaultRotation + _rotateAngle;
         else if (direction < 0)
             targetRotation = _defaultRotation - _rotateAngle;
-        else 
+        else
             targetRotation = _defaultRotation;
 
         return targetRotation;

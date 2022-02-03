@@ -58,12 +58,13 @@ public class PlayerCamera : MonoBehaviour
 
     private IEnumerator CutSceneMove(Transform targetPosition)
     {
+        Vector3 offset = new Vector3(0, 2.5f, 0);
         float elapsedTime = 0;
         while (elapsedTime < _cutSceneDuration)
         {
             elapsedTime += Time.deltaTime;
             
-            _camera.LookAt(_player.transform);
+            _camera.LookAt(_player.transform.position + offset);
 
             yield return null;
         }
