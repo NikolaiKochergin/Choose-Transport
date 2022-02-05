@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 currentDirection = Vector3.zero;
 
-        float targetHorizontalDirection = _playerInput.InputDirection() * -1f;
+        float targetHorizontalDirection = _playerInput.InputDirection() * -1;
 
         _currentHorizontalDirection = Mathf.MoveTowards(_currentHorizontalDirection, targetHorizontalDirection,
             _turnSpeed * Time.fixedDeltaTime);
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ClampPlayerMovement()
     {
-        if (_currentRoadDirection.x == 1)
+        if (_currentRoadDirection.x == 1 || _currentRoadDirection.x == -1)
         {
             float zPosition = Mathf.Clamp(transform.position.z, _minHorizontalPosition, _maxHorizontalPosition);
             transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);

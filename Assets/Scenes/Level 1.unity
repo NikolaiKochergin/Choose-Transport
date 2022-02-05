@@ -358,6 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -4887,10 +4888,18 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 1206777688}
+    - target: {fileID: 1162848741372089016, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: _currentRoadDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4986770387389093423, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
       propertyPath: _input
       value: 
       objectReference: {fileID: 1206777688}
+    - target: {fileID: 4986770387389093423, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: _currentRoadDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
 --- !u!1001 &1670171584259130761

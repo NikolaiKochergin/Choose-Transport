@@ -53,7 +53,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -305,7 +304,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -402,7 +400,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -492,7 +489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7420864185382076814, guid: 30139736f8cd99a45ac7b118e3a25108, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.41
+      value: 4.69
       objectReference: {fileID: 0}
     - target: {fileID: 7420864185382076814, guid: 30139736f8cd99a45ac7b118e3a25108, type: 3}
       propertyPath: m_LocalPosition.z
@@ -540,7 +537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906038378224573239, guid: 30139736f8cd99a45ac7b118e3a25108, type: 3}
       propertyPath: _horizontalSpeed
-      value: 1500
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7906038378224573239, guid: 30139736f8cd99a45ac7b118e3a25108, type: 3}
       propertyPath: _moveDirection.x
@@ -876,7 +873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8220585323783757832, guid: bf073fe083d600447b6cb251c809cb7a, type: 3}
       propertyPath: _horizontalSpeed
-      value: 1500
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8220585323783757832, guid: bf073fe083d600447b6cb251c809cb7a, type: 3}
       propertyPath: _moveDirection.x

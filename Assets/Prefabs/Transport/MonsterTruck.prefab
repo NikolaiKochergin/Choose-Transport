@@ -139,19 +139,19 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568106623937059939}
-  serializedVersion: 8
+  serializedVersion: 7
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  emitterVelocityMode: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
+  useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -629,7 +629,6 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -4800,7 +4799,6 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4895,19 +4893,19 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568106623937262823}
-  serializedVersion: 8
+  serializedVersion: 7
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  emitterVelocityMode: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
+  useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -5385,7 +5383,6 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -9556,7 +9553,6 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -9762,23 +9758,6 @@ Transform:
   m_Father: {fileID: 8222305856651155551}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2883021331038637971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2943608059684168341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 3243657424914538679}
-  _material: {fileID: 2100000, guid: dce0ee6573afc974dad610c794b9f153, type: 2}
-  _particle: {fileID: 8924773219184008429}
-  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
-  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &4011762428999176590
 GameObject:
   m_ObjectHideFlags: 0
@@ -9898,19 +9877,19 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4333290405035296119}
-  serializedVersion: 8
+  serializedVersion: 7
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  emitterVelocityMode: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
+  useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -10388,7 +10367,6 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -14559,7 +14537,6 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -14684,19 +14661,19 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5692222975268965854}
-  serializedVersion: 8
+  serializedVersion: 7
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  emitterVelocityMode: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
+  useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -15174,7 +15151,6 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -19345,7 +19321,6 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -19430,23 +19405,6 @@ Transform:
   m_Father: {fileID: 8222305856651155549}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3104730154854326728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7848561378576772200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 7901072423543564496}
-  _material: {fileID: 2100000, guid: 333675a6b48af0443bdce0d314e195ba, type: 2}
-  _particle: {fileID: 3636639701480679256}
-  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
-  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &7867389230601701905
 GameObject:
   m_ObjectHideFlags: 0
@@ -19497,40 +19455,6 @@ MonoBehaviour:
   _input: {fileID: 0}
   _transform: {fileID: 1112464987123931695}
   _isBackWheel: 0
---- !u!114 &8222305856650855542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8222305856650855541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 8629316134277776983}
-  _material: {fileID: 2100000, guid: dce0ee6573afc974dad610c794b9f153, type: 2}
-  _particle: {fileID: 1568106623918551541}
-  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
-  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
---- !u!114 &8222305856650855536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8222305856650855543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 8311095009475559631}
-  _material: {fileID: 2100000, guid: 333675a6b48af0443bdce0d314e195ba, type: 2}
-  _particle: {fileID: 3613201559400332011}
-  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
-  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &8222305856650855549
 GameObject:
   m_ObjectHideFlags: 0
@@ -19584,8 +19508,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _price: 20
-  _speed: 1500
-  _horizontalSpeed: 1500
+  _forwardSpeed: 11
+  _horizontalSpeed: 6
+  _turnSpeed: 3
   _delay: 0.435
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 1753122806621977277}
@@ -19604,7 +19529,7 @@ MonoBehaviour:
   - {fileID: 8222305856650855536}
   - {fileID: 2883021331038637971}
   - {fileID: 3104730154854326728}
-  _moveDirection: {x: 0, y: 0, z: -1}
+  _currentRoadDirection: {x: 0, y: 0, z: 0}
   _wheelRotaters:
   - {fileID: 4330125271689013391}
   - {fileID: 2439383851902915055}
@@ -19711,7 +19636,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -19834,6 +19758,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7671678395475897666, guid: 0fc8834a8d97de74d8b333acf363ec25, type: 3}
   m_PrefabInstance: {fileID: 476526309008055562}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3104730154854326728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848561378576772200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 7901072423543564496}
+  _material: {fileID: 2100000, guid: 333675a6b48af0443bdce0d314e195ba, type: 2}
+  _particle: {fileID: 3636639701480679256}
+  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1001 &815420695352744556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19911,11 +19852,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
---- !u!95 &3243657424914538679 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2761619111738243803, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
-  m_PrefabInstance: {fileID: 815420695352744556}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2943608059684168341 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2560647280184211705, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
@@ -19926,6 +19862,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2560647280184304857, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
   m_PrefabInstance: {fileID: 815420695352744556}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &3243657424914538679 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2761619111738243803, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
+  m_PrefabInstance: {fileID: 815420695352744556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2883021331038637971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2943608059684168341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 3243657424914538679}
+  _material: {fileID: 2100000, guid: dce0ee6573afc974dad610c794b9f153, type: 2}
+  _particle: {fileID: 8924773219184008429}
+  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1001 &1759844528634688789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20018,6 +19976,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7671678395476259170, guid: 0fc8834a8d97de74d8b333acf363ec25, type: 3}
   m_PrefabInstance: {fileID: 1759844528634688789}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8222305856650855536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8222305856650855543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 8311095009475559631}
+  _material: {fileID: 2100000, guid: 333675a6b48af0443bdce0d314e195ba, type: 2}
+  _particle: {fileID: 3613201559400332011}
+  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1001 &3613201559382311649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20349,11 +20324,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
---- !u!95 &8629316134277776983 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2761619111738243803, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
-  m_PrefabInstance: {fileID: 5877831650711895180}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8222305856651155541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2560647280184304857, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
@@ -20364,3 +20334,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2560647280184211705, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
   m_PrefabInstance: {fileID: 5877831650711895180}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8629316134277776983 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2761619111738243803, guid: 2349e8f7adedd3245837a798cafadd2b, type: 3}
+  m_PrefabInstance: {fileID: 5877831650711895180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8222305856650855542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8222305856650855541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97aa8db95a4caad48998e56cb4671dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 8629316134277776983}
+  _material: {fileID: 2100000, guid: dce0ee6573afc974dad610c794b9f153, type: 2}
+  _particle: {fileID: 1568106623918551541}
+  _dirtColor: {r: 0.93333334, g: 0.49411765, b: 0.17254902, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 0}

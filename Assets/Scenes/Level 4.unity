@@ -601,6 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -4369,10 +4370,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1014502050}
     - target: {fileID: 383508240955042736, guid: 352b6ffbc779809489896375386b1e85, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 1600
-      objectReference: {fileID: 0}
-    - target: {fileID: 383508240955042736, guid: 352b6ffbc779809489896375386b1e85, type: 3}
       propertyPath: _moveDirection.x
       value: 0
       objectReference: {fileID: 0}
@@ -4384,6 +4381,10 @@ PrefabInstance:
       propertyPath: _playerCoinsPosition
       value: 
       objectReference: {fileID: 1014502051}
+    - target: {fileID: 383508240955042736, guid: 352b6ffbc779809489896375386b1e85, type: 3}
+      propertyPath: _currentRoadDirection.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2573727828051260450, guid: 352b6ffbc779809489896375386b1e85, type: 3}
       propertyPath: _input
       value: 
@@ -4395,6 +4396,10 @@ PrefabInstance:
     - target: {fileID: 3767744799271157730, guid: 352b6ffbc779809489896375386b1e85, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.423612
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767744799673149058, guid: 352b6ffbc779809489896375386b1e85, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3767744799768591481, guid: 352b6ffbc779809489896375386b1e85, type: 3}
       propertyPath: m_LocalScale.x
@@ -4489,15 +4494,15 @@ PrefabInstance:
       value: 1900
       objectReference: {fileID: 0}
     - target: {fileID: 7470734888761252799, guid: 352b6ffbc779809489896375386b1e85, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 1400
-      objectReference: {fileID: 0}
-    - target: {fileID: 7470734888761252799, guid: 352b6ffbc779809489896375386b1e85, type: 3}
       propertyPath: _moveDirection.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7470734888761252799, guid: 352b6ffbc779809489896375386b1e85, type: 3}
       propertyPath: _moveDirection.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470734888761252799, guid: 352b6ffbc779809489896375386b1e85, type: 3}
+      propertyPath: _currentRoadDirection.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7589580507006323322, guid: 352b6ffbc779809489896375386b1e85, type: 3}
@@ -9138,6 +9143,10 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 59330932}
+    - target: {fileID: 3963379163087287134, guid: 69f91c38ef0649b47890fdbe877e4cf6, type: 3}
+      propertyPath: _currentRoadDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4344584910194928103, guid: 69f91c38ef0649b47890fdbe877e4cf6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.033
@@ -9162,6 +9171,10 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 59330932}
+    - target: {fileID: 5836351455687480888, guid: 69f91c38ef0649b47890fdbe877e4cf6, type: 3}
+      propertyPath: _currentRoadDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6058159747766655918, guid: 69f91c38ef0649b47890fdbe877e4cf6, type: 3}
       propertyPath: m_RootOrder
       value: 0

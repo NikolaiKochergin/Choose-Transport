@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -4702,6 +4703,10 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 1332975777}
+    - target: {fileID: 1162848741372089016, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: _currentRoadDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1162848741421666290, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
       propertyPath: m_ReceiveShadows
       value: 0
@@ -4710,6 +4715,10 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 1332975777}
+    - target: {fileID: 4986770387389093423, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: _currentRoadDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
 --- !u!4 &1526068121 stripped
@@ -6728,10 +6737,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2145121861}
     - target: {fileID: 5044936339842482270, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 1200
-      objectReference: {fileID: 0}
-    - target: {fileID: 5044936339842482270, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
       propertyPath: _moveDirection.x
       value: 0
       objectReference: {fileID: 0}
@@ -6743,6 +6748,10 @@ PrefabInstance:
       propertyPath: _playerCoinsPosition
       value: 
       objectReference: {fileID: 202144968}
+    - target: {fileID: 5044936339842482270, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
+      propertyPath: _currentRoadDirection.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5044936339842482270, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
       propertyPath: _wheelRotaters.Array.size
       value: 2
@@ -6799,6 +6808,10 @@ PrefabInstance:
       propertyPath: _playerCoinsPosition
       value: 
       objectReference: {fileID: 475942134}
+    - target: {fileID: 6194192887198518312, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
+      propertyPath: _currentRoadDirection.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6451601948324157906, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.54492116
