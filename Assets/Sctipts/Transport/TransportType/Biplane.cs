@@ -53,8 +53,9 @@ public class Biplane : Transport
 
     private IEnumerator Move()
     {
+        _input.transform.localRotation = Quaternion.Euler(0,-90,0);
         yield return new WaitForSeconds(0.5f);
-        _animator.enabled = false;
+        _animator.enabled = true;
 
         Vector3 currentDirection = Vector3.zero;
         float defaultHeight = transform.position.y;
@@ -87,7 +88,7 @@ public class Biplane : Transport
                                  currentDirection;
             
             transform.LookAt(transform.position + currentDirection);
-            transform.Rotate(12,0,currentHorizontalDirection * 30);
+            transform.Rotate(10,0,currentHorizontalDirection * 30);
             ClampPlayerMovement();
 
             yield return new WaitForFixedUpdate();

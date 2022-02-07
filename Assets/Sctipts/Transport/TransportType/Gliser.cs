@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gliser : Transport, ISwim
@@ -25,7 +24,7 @@ public class Gliser : Transport, ISwim
         Swim();
 
         StartCoroutine(ShowWaterEffect());
-        //_animator.enabled = true;
+        _animator.enabled = true;
 
         if (_currentRoadDirection.x == 1)
         {
@@ -56,7 +55,9 @@ public class Gliser : Transport, ISwim
 
     private IEnumerator Move()
     {
+        _input.transform.localRotation = Quaternion.Euler(0,-90,0);
         yield return new WaitForSeconds(0.85f);
+        _animator.enabled = true;
 
         Vector3 currentDirection = Vector3.zero;
         float defaultHeight = transform.position.y;

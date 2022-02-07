@@ -55,13 +55,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrier2 Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 5044936339842482270, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6194192887198518312, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc7a2ef6548ea0947a8f8ceea680feb4, type: 3}

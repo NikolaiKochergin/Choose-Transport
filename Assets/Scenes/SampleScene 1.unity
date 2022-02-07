@@ -337,6 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -4265,7 +4266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7225fd35ba4bd7d429e441b0ec17ef21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1332975773}
 --- !u!1001 &1215929412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4701,7 +4701,7 @@ MonoBehaviour:
   _exitDelay: 0
   _exitMoveSpeed: 0
   _rotateMoveSpeed: 0
-  _rotateSpeed: 0
+  _rotateDuration: 0
   _flippersParents: []
 --- !u!114 &1332975774
 MonoBehaviour:
@@ -4758,7 +4758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8103614e9462e504394a631f081e1a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minPressedTime: 0
+  _sensetivity: 0
 --- !u!114 &1332975778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4773,8 +4773,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 1332975777}
   _roadWeight: 0
-  _speed: 140
+  _forwardSpeed: 0
   _horizontalSpeed: 150
+  _turnSpeed: 0
   _player: {fileID: 1332975773}
   _rotater: {fileID: 1332975780}
   _hitJumpCurve:
@@ -8556,6 +8557,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1332975773}
+    - target: {fileID: 7822149286458056425, guid: 53201df77f781984cb9f82431d35fd69, type: 3}
+      propertyPath: _price
+      value: 3000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53201df77f781984cb9f82431d35fd69, type: 3}
 --- !u!4 &2645978275503030850 stripped

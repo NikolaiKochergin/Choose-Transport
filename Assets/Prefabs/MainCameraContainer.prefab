@@ -48,9 +48,7 @@ MonoBehaviour:
   _camera: {fileID: 1163703542255033706}
   _moveSpeed: 0.5
   _cutSceneDuration: 3
-  _cutSceneSpeed: 0.03
-  _rotateSpeed: 400
-  _turnDuration: 0.4
+  _turnDuration: 0.2
 --- !u!1 &1163703542255033711
 GameObject:
   m_ObjectHideFlags: 0

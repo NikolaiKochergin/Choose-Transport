@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Umbrella : Transport
@@ -49,6 +48,7 @@ public class Umbrella : Transport
 
     private IEnumerator Move()
     {
+        _input.transform.localRotation = Quaternion.Euler(0,-90,0);
         yield return new WaitForSeconds(0.5f);
 
         Vector3 currentDirection = Vector3.zero;
@@ -82,6 +82,7 @@ public class Umbrella : Transport
                                  currentDirection;
             
             transform.LookAt(transform.position + currentDirection);
+            transform.Rotate(0,-90,0);
             ClampPlayerMovement();
             
             yield return new WaitForFixedUpdate();

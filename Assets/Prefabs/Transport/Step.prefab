@@ -85,7 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 20
   _forwardSpeed: 11
-  _horizontalSpeed: 6
+  _horizontalSpeed: 4
   _turnSpeed: 5
   _delay: 0
   _delayBeforeStartUseAnimation: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   _Test: 0
   _input: {fileID: 0}
   _animator: {fileID: 2199465982952830983}
-  _moveDirection: {x: 0, y: 0, z: 0}
+  _currentRoadDirection: {x: 0, y: 0, z: 0}
   _dirtEffect: {fileID: 5271916267645607951}
 --- !u!54 &188083696724818385
 Rigidbody:

@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateAngle: 25
-  _rotationSpeed: 4
+  _rotationSpeed: 5
   _input: {fileID: 0}
   _transform: {fileID: 5525377608922197314}
   _isBackWheel: 0
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateAngle: 25
-  _rotationSpeed: 4
+  _rotationSpeed: 5
   _input: {fileID: 0}
   _transform: {fileID: 4539660034043458202}
   _isBackWheel: 0

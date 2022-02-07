@@ -698,10 +698,6 @@ PrefabInstance:
       value: 1900
       objectReference: {fileID: 0}
     - target: {fileID: 8460234634098967155, guid: 5eb98c1dc91d3e548a86ee37ba44b459, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8460234634098967155, guid: 5eb98c1dc91d3e548a86ee37ba44b459, type: 3}
       propertyPath: _moveDirection.x
       value: 1
       objectReference: {fileID: 0}

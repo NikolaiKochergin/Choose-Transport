@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _exitDelay;
     [SerializeField] private float _exitMoveSpeed;
     [SerializeField] private float _rotateMoveSpeed;
-    [SerializeField] private float _rotateSpeed;
+    [SerializeField][Min(0.1f)] private float _rotateDuration;
 
     [SerializeField] private GameObject[] _flippersParents;
 
@@ -289,7 +289,7 @@ public class Player : MonoBehaviour
 
             while (transform.position.x != zone.EndRotatePosition.position.x)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed );
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.deltaTime );
                 yield return null;
             }
         }
@@ -299,7 +299,7 @@ public class Player : MonoBehaviour
 
             while (transform.position.z != zone.EndRotatePosition.position.z)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed );
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.deltaTime);
                 yield return null;
             }
         }
@@ -340,11 +340,16 @@ public class Player : MonoBehaviour
         }
         RotateZoneEnded?.Invoke(zone);
 
-        Quaternion targetRotation = Quaternion.Euler(transform.eulerAngles.x, TargetRotation, transform.eulerAngles.z);      
+        Quaternion targetRotation = Quaternion.Euler(transform.eulerAngles.x, TargetRotation, transform.eulerAngles.z);
+
+        float rotateSpeed = Quaternion.Angle(targetRotation, transform.rotation) / _rotateDuration;
+        float timer = _rotateDuration;
         
-        while(transform.rotation != targetRotation)
+        while(timer > 0)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotateSpeed);
+            timer -= Time.deltaTime;
+            
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
             yield return null;
         }
         
@@ -354,6 +359,6 @@ public class Player : MonoBehaviour
 
 
 
-        yield return null;
+        //yield return null;
     }
 }

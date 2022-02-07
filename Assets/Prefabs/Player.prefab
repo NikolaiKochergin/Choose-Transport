@@ -269,7 +269,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8098210660894443496}
+  m_Father: {fileID: 4901503284662402240}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -288,7 +288,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_MotionVectors: 1
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
@@ -361,12 +361,12 @@ MonoBehaviour:
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
+  m_overrideHtmlColors: 1
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.5
-  m_fontSizeBase: 7.5
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -643,7 +643,7 @@ Transform:
   - {fileID: 8098210661953102466}
   - {fileID: 8640198550472003947}
   - {fileID: 8098210660681747057}
-  - {fileID: 8098210660894443496}
+  - {fileID: 4901503284662402240}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -663,8 +663,8 @@ MonoBehaviour:
   _movement: {fileID: 8098210660812189949}
   _exitDelay: 1
   _exitMoveSpeed: 15
-  _rotateMoveSpeed: 0.6
-  _rotateSpeed: 1.4
+  _rotateMoveSpeed: 10
+  _rotateDuration: 0.2
   _flippersParents:
   - {fileID: 7131431280917643629}
   - {fileID: 4806458888986826263}
@@ -713,7 +713,7 @@ MonoBehaviour:
   _playerInput: {fileID: 8098210660812189950}
   _roadWeight: 4
   _forwardSpeed: 11
-  _horizontalSpeed: 6
+  _horizontalSpeed: 5
   _turnSpeed: 5
   _player: {fileID: 8098210660812189890}
   _rotater: {fileID: 8098210660812189947}
@@ -778,7 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8103614e9462e504394a631f081e1a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sensetivity: 0.1
+  _sensetivity: 4
 --- !u!114 &8098210660812189889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,7 +830,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8098210660894443496}
+  - component: {fileID: 4901503284662402240}
   - component: {fileID: 7661339301546516104}
   m_Layer: 0
   m_Name: MoneyText
@@ -839,21 +839,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8098210660894443496
-Transform:
+--- !u!224 &4901503284662402240
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8098210660894443497}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 4.95, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8098210660674103784}
   m_Father: {fileID: 8098210660812189891}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.931, y: 5.108}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7661339301546516104
 MonoBehaviour:
   m_ObjectHideFlags: 0

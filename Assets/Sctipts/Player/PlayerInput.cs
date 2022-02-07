@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] [Range(0, 2)] private float _sensetivity;
+    [SerializeField] [Range(0, 10)] private float _sensetivity;
 
     private float _direction;
+
+    private float _startPosition;
     
     public Input Inputs { get; private set; }
     public float Direction => _direction;
@@ -13,6 +15,8 @@ public class PlayerInput : MonoBehaviour
     {
         Inputs = new Input();
         Inputs.Enable();
+
+        Inputs.MoveLR.TouchDown.started += ctx => SaveStartPosition();
     }
 
     public float InputDirection()
@@ -22,15 +26,22 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        float deltaX = Inputs.MoveLR.TouchDelta.ReadValue<float>();
-
         if (Inputs.MoveLR.TouchDown.IsPressed())
         {
-            _direction = Mathf.Clamp(deltaX * _sensetivity, -1, 1);
+            float currentPosition = Inputs.MoveLR.TouchPos.ReadValue<Vector2>().x;
+
+            float touchDelta = (currentPosition - _startPosition) * _sensetivity / Screen.width;
+
+            _direction = Mathf.Clamp(touchDelta, -1, 1);
         }
         else
         {
             _direction = 0;
         }
+    }
+
+    private void SaveStartPosition()
+    {
+        _startPosition = Inputs.MoveLR.TouchPos.ReadValue<Vector2>().x;
     }
 }

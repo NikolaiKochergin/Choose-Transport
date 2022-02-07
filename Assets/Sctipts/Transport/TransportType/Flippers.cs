@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Flippers : Transport
@@ -70,6 +69,7 @@ public class Flippers : Transport
 
     private IEnumerator Move()
     {
+        _input.transform.localRotation = Quaternion.Euler(90,0,90);
         yield return new WaitForSeconds(0.5f);
 
         Vector3 currentDirection = Vector3.zero;
