@@ -55,7 +55,7 @@ public class Gliser : Transport, ISwim
 
     private IEnumerator Move()
     {
-        _input.transform.localRotation = Quaternion.Euler(0,-90,0);
+        //_input.transform.localRotation = Quaternion.Euler(0,-90,0);
         yield return new WaitForSeconds(0.85f);
         _animator.enabled = true;
 

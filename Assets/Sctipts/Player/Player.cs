@@ -59,6 +59,8 @@ public class Player : MonoBehaviour
 
     public int Coins => _wallet.Coins;
 
+    public Transform Model => _model.transform;
+
     private void OnEnable()
     {        
         _wallet = GetComponent<Wallet>();
@@ -232,6 +234,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator PlayAnimationWithDelay(Transport transport)
     {
+        _movement.StopLookAtDirection();
+        
         yield return new WaitForSeconds(transport.DelayBeforePlayAnimation);
         StartedUseTransport?.Invoke(transport.NameUseAnimation);
         yield return new WaitForSeconds(transport.Delay);
@@ -279,6 +283,7 @@ public class Player : MonoBehaviour
         _model.transform.localPosition = new Vector3(0, 0, 0);
         StartMove();
         transform.localRotation = Quaternion.Euler(_defaultRotation);
+        _movement.StartLookAtDirection();
     }
 
     private IEnumerator MoveToRotateTarget(RotateZone zone)
@@ -289,8 +294,8 @@ public class Player : MonoBehaviour
 
             while (transform.position.x != zone.EndRotatePosition.position.x)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.deltaTime );
-                yield return null;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.fixedDeltaTime );
+                yield return new WaitForFixedUpdate();
             }
         }
         else if ( _currentDirection.z == 1|_currentDirection.z == -1)
@@ -299,8 +304,8 @@ public class Player : MonoBehaviour
 
             while (transform.position.z != zone.EndRotatePosition.position.z)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.deltaTime);
-                yield return null;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.fixedDeltaTime);
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -349,8 +354,8 @@ public class Player : MonoBehaviour
         {
             timer -= Time.deltaTime;
             
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-            yield return null;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
         }
         
         transform.rotation = targetRotation;

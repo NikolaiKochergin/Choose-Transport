@@ -36,10 +36,14 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator _rotateToFinish;
     private Vector3 _currentRoadDirection;
 
+    private bool _isLookAtDirection;
+
     public event UnityAction Finished;
 
     private void OnEnable()
     {
+        StartLookAtDirection();
+        
         _horizontalSpeed *= 2;
 
         _player.StopMove += StopMove;
@@ -84,6 +88,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Move();
         }
+        else
+        {
+            _player.Model.localRotation = Quaternion.Euler(0, 90, 0);
+        }
     }
 
     private void Move()
@@ -114,7 +122,10 @@ public class PlayerMovement : MonoBehaviour
         transform.position =
             new Vector3(transform.position.x, _targetYPosition, transform.position.z) + currentDirection;
         
-        _rotater.LookAt(currentDirection);
+        if(_isLookAtDirection)
+            _rotater.LookAt(currentDirection);
+        else
+            _player.Model.localRotation = Quaternion.Euler(0, 90, 0);
         
         ClampPlayerMovement();
     }
@@ -131,6 +142,16 @@ public class PlayerMovement : MonoBehaviour
             float xPosition = Mathf.Clamp(transform.position.x, _minHorizontalPosition, _maxHorizontalPosition);
             transform.position = new Vector3(xPosition, transform.position.y, transform.position.z);
         }
+    }
+
+    public void StartLookAtDirection()
+    {
+        _isLookAtDirection = true;
+    }
+
+    public void StopLookAtDirection()
+    {
+        _isLookAtDirection = false;
     }
 
     public void StopMove()

@@ -48,7 +48,6 @@ public class Umbrella : Transport
 
     private IEnumerator Move()
     {
-        _input.transform.localRotation = Quaternion.Euler(0,-90,0);
         yield return new WaitForSeconds(0.5f);
 
         Vector3 currentDirection = Vector3.zero;

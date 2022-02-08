@@ -10071,7 +10071,7 @@ MonoBehaviour:
   _price: 100
   _forwardSpeed: 11
   _horizontalSpeed: 3
-  _turnSpeed: 1
+  _turnSpeed: 1.5
   _delay: 0.55
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 7998790338383212809}
@@ -10150,7 +10150,7 @@ MonoBehaviour:
   _rotateAngle: 15
   _rotationSpeed: 2
   _input: {fileID: 0}
-  _transform: {fileID: 8129379605604688844}
+  _playerModel: {fileID: 8156670476452883950}
 --- !u!1 &7998790338383212822
 GameObject:
   m_ObjectHideFlags: 0

@@ -346,7 +346,7 @@ MonoBehaviour:
   _price: 150
   _forwardSpeed: 11
   _horizontalSpeed: 2
-  _turnSpeed: 1
+  _turnSpeed: 1.5
   _delay: 0.435
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 3662170703349449208}

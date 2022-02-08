@@ -7,15 +7,17 @@ public class MovementRotater : MonoBehaviour
     [SerializeField] private float _rotateAngle;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private PlayerInput _input;
-    [SerializeField] private Transform _transform;
+    [SerializeField] private Transform _playerModel;
 
     private float _rotationTarget;
     private float _defaultRotation;
     private bool _canRotate = true;
+    
+    public Transform PlayerModel => _playerModel;
 
     private void Start()
     {
-        _defaultRotation = _transform.rotation.eulerAngles.y;
+        _defaultRotation = _playerModel.rotation.eulerAngles.y;
     }
 
     private void FixedUpdate()
@@ -28,13 +30,13 @@ public class MovementRotater : MonoBehaviour
 
     public void LookAt(Vector3 direction)
     {
-        _transform.LookAt(_transform.position + direction);
+        _playerModel.LookAt(_playerModel.position + direction);
     }
 
     private void Rotate()
     {
         _rotationTarget = GetTargetRotate();
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Quaternion.Euler(0, _rotationTarget, 0),
+        _playerModel.rotation = Quaternion.RotateTowards(_playerModel.rotation, Quaternion.Euler(0, _rotationTarget, 0),
             _rotationSpeed * Time.fixedDeltaTime);
     }
 
@@ -56,7 +58,7 @@ public class MovementRotater : MonoBehaviour
     public void StopRotate()
     {
         _canRotate = false;
-        _transform.rotation = Quaternion.Euler(0, _defaultRotation, 0);
+        _playerModel.rotation = Quaternion.Euler(0, _defaultRotation, 0);
     }
 
     public void StartRotate()
@@ -66,7 +68,7 @@ public class MovementRotater : MonoBehaviour
 
     public void EndRotate()
     {
-        _defaultRotation = _transform.eulerAngles.y;
+        _defaultRotation = _playerModel.eulerAngles.y;
         _canRotate = true;
     }
 }

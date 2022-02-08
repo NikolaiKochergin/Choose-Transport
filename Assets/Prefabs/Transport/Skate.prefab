@@ -85,7 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 10
   _forwardSpeed: 11
-  _horizontalSpeed: 7
+  _horizontalSpeed: 5
   _turnSpeed: 5
   _delay: 0.435
   _delayBeforeStartUseAnimation: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   _rotateAngle: 25
   _rotationSpeed: 4
   _input: {fileID: 0}
-  _transform: {fileID: 2409488598172387612}
+  _playerModel: {fileID: 2409488598172387612}
 --- !u!1 &709997981407025775
 GameObject:
   m_ObjectHideFlags: 0
