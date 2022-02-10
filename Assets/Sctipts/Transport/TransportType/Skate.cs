@@ -5,6 +5,7 @@ using UnityEngine;
 public class Skate : Transport
 {
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private float _visibleTurnAngle;
     //[SerializeField] private Animator _animator;
     [SerializeField] private ParticleSystem _dust;
     [SerializeField] private Vector3 _currentRoadDirection;
@@ -14,6 +15,8 @@ public class Skate : Transport
 
     private float _minHorizontalPosition;
     private float _maxHorizontalPosition;
+    private float _defaultRotationY;
+    
     public override void StartMove()
     {
         _rotater = GetComponent<MovementRotater>();
@@ -32,16 +35,19 @@ public class Skate : Transport
         {
             _minHorizontalPosition = transform.position.z - 5.5f;
             _maxHorizontalPosition = transform.position.z + 1.5f;
+            _defaultRotationY = 90;
         }
         else if (_currentRoadDirection.z == 1)
         {
             _minHorizontalPosition = transform.position.x - 1.5f;
             _maxHorizontalPosition = transform.position.x + 5.5f;
+            _defaultRotationY = 0;
         }
         else if (_currentRoadDirection.z == -1)
         {
             _minHorizontalPosition = transform.position.x - 5.5f;
             _maxHorizontalPosition = transform.position.x + 1.5f;
+            _defaultRotationY = 0;
         }
     }
 
@@ -88,7 +94,7 @@ public class Skate : Transport
             transform.position = new Vector3(transform.position.x, defaultHeight, transform.position.z) +
                                  currentDirection;
             
-            transform.LookAt(transform.position + currentDirection);
+            transform.rotation = Quaternion.Euler(0, _defaultRotationY - currentHorizontalDirection * _visibleTurnAngle,0);
             ClampPlayerMovement();
 
             yield return new WaitForFixedUpdate();

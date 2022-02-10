@@ -6,6 +6,7 @@ using UnityEngine;
 public class Porsche : Transport
 {
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private float _visibleTurnAngle;
     [SerializeField] private Animator _animator;
     [SerializeField] private Wheel[] _wheels;
     [SerializeField] private Vector3 _currentRoadDirection;
@@ -16,6 +17,8 @@ public class Porsche : Transport
     private MovementRotater _rotater;
     private float _minHorizontalPosition;
     private float _maxHorizontalPosition;
+    private float _defaultRotationY;
+    
     public override void StartMove()
     {
         _rotater = GetComponent<MovementRotater>();
@@ -39,16 +42,19 @@ public class Porsche : Transport
         {
             _minHorizontalPosition = transform.position.z - 0.1f;
             _maxHorizontalPosition = transform.position.z + 5.5f;
+            _defaultRotationY = 90;
         }
         else if (_currentRoadDirection.z == 1)
         {
             _minHorizontalPosition = transform.position.x - 5.5f;
             _maxHorizontalPosition = transform.position.x + 0.1f;
+            _defaultRotationY = 0;
         }
         else if (_currentRoadDirection.z == -1)
         {
             _minHorizontalPosition = transform.position.x - 0.1f;
             _maxHorizontalPosition = transform.position.x + 5.5f;
+            _defaultRotationY = 180;
         }
     }
 
@@ -104,8 +110,7 @@ public class Porsche : Transport
             transform.position = new Vector3(transform.position.x, defaultHeight, transform.position.z) +
                                  currentDirection;
             
-            transform.LookAt(transform.position + currentDirection);
-            //transform.Rotate(0,90,0);
+            transform.rotation = Quaternion.Euler(0, _defaultRotationY - currentHorizontalDirection * _visibleTurnAngle,0);
             ClampPlayerMovement();
 
             yield return new WaitForFixedUpdate();

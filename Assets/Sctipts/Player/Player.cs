@@ -361,9 +361,5 @@ public class Player : MonoBehaviour
         transform.rotation = targetRotation;
         _defaultRotation = transform.rotation.eulerAngles;
         _rotater.EndRotate();
-
-
-
-        //yield return null;
     }
 }

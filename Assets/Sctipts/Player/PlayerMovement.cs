@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _forwardSpeed;
     [SerializeField] private float _horizontalSpeed;
     [SerializeField] private float _turnSpeed;
+    [SerializeField] private float _visibleTurnAngle;
     [SerializeField] private Player _player;
 
     [SerializeField] private MovementRotater _rotater;
@@ -43,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         StartLookAtDirection();
-        
+
         _horizontalSpeed *= 2;
 
         _player.StopMove += StopMove;
@@ -121,12 +122,12 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position =
             new Vector3(transform.position.x, _targetYPosition, transform.position.z) + currentDirection;
-        
-        if(_isLookAtDirection)
-            _rotater.LookAt(currentDirection);
+
+        if (_isLookAtDirection)
+            _player.Model.localRotation = Quaternion.Euler(0, 90 - _currentHorizontalDirection * _visibleTurnAngle, 0);
         else
             _player.Model.localRotation = Quaternion.Euler(0, 90, 0);
-        
+
         ClampPlayerMovement();
     }
 
@@ -246,26 +247,26 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsedTime < _hitJumpDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.fixedDeltaTime;
             float progress = elapsedTime / _hitJumpDuration;
 
             if (_currentRoadDirection.x == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                        transform.position.z + _zHitSpeed * Time.deltaTime * direction), 0.05f);
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transform.position.z + _zHitSpeed * direction), progress);
             else if (_currentRoadDirection.z == 1)
                 transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x + _zHitSpeed * Time.deltaTime * direction,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                        transform.position.z), 0.05f);
+                    new Vector3(transform.position.x + _zHitSpeed * direction,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transform.position.z), progress);
             else if (_currentRoadDirection.z == -1)
                 transform.position = Vector3.Lerp(transform.position,
-                    new Vector3(transform.position.x - _zHitSpeed * Time.deltaTime * direction,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                        transform.position.z), 0.05f);
+                    new Vector3(transform.position.x - _zHitSpeed * direction,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transform.position.z), progress);
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 
@@ -277,26 +278,28 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsedTime < _hitJumpDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.fixedDeltaTime;
             float progress = elapsedTime / _hitJumpDuration;
 
             if (_currentRoadDirection.x == 1)
-                transform.position = Vector3.Lerp(transform.position,
+            {
+                transform.position = Vector3.Lerp(startThrowBackPosition,
                     new Vector3(startThrowBackPosition.x - 5,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                        transform.position.z), 0.05f);
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transform.position.z), progress);
+            }
             else if (_currentRoadDirection.z == 1)
-                transform.position = Vector3.Lerp(transform.position,
+                transform.position = Vector3.Lerp(startThrowBackPosition,
                     new Vector3(transform.position.x,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                        startThrowBackPosition.z - 5), 0.05f);
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        startThrowBackPosition.z - 5), progress);
             else if (_currentRoadDirection.z == -1)
-                transform.position = Vector3.Lerp(transform.position,
+                transform.position = Vector3.Lerp(startThrowBackPosition,
                     new Vector3(transform.position.x,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                        startThrowBackPosition.z + 5), 0.05f);
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        startThrowBackPosition.z + 5), progress);
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 
@@ -317,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
         while (transform.position.y != inclinedSurfaceTarget.position.y)
         {
             _targetYPosition = Mathf.MoveTowards(_targetYPosition, inclinedSurfaceTarget.position.y,
-                _speedInclinedSurfaceMove * Time.deltaTime);
+                _speedInclinedSurfaceMove * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -327,18 +330,20 @@ public class PlayerMovement : MonoBehaviour
     {
         StopMove();
 
+        Vector3 startThrowBackPosition = transform.position;
+
         float elapsedTime = 0;
 
         while (elapsedTime < _hitJumpDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.fixedDeltaTime;
             float progress = elapsedTime / _hitJumpDuration;
 
-            transform.position = Vector3.Lerp(transform.position,
+            transform.position = Vector3.Lerp(startThrowBackPosition,
                 new Vector3(targetJumpPosition.position.x,
-                    _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                    targetJumpPosition.position.z), 0.034f);
-            yield return null;
+                    _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                    targetJumpPosition.position.z), progress);
+            yield return new WaitForFixedUpdate();
         }
 
         transform.position = new Vector3(transform.position.x, _targetYPosition, transform.position.z);
@@ -355,14 +360,14 @@ public class PlayerMovement : MonoBehaviour
 
         while (elapsedTime < _hitJumpDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.fixedDeltaTime;
             float progress = elapsedTime / _hitJumpDuration;
 
-            transform.position = Vector3.Lerp(transform.position,
+            transform.position = Vector3.Lerp(transformPosition,
                 new Vector3(transformPosition.x - 8,
-                    _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed * Time.deltaTime,
-                    transform.position.z), 0.05f);
-            yield return null;
+                    _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                    transform.position.z), progress);
+            yield return new WaitForFixedUpdate();
         }
     }
 
@@ -388,7 +393,6 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, finishRotation, 0.1f);
             yield return null;
         }
-
 
         yield return null;
     }

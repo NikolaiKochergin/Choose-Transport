@@ -345,8 +345,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 150
   _forwardSpeed: 11
-  _horizontalSpeed: 2
-  _turnSpeed: 1.5
+  _horizontalSpeed: 5
+  _turnSpeed: 5
   _delay: 0.435
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 3662170703349449208}
@@ -359,6 +359,7 @@ MonoBehaviour:
   _testSpeed: 0
   _Test: 0
   _input: {fileID: 0}
+  _visibleTurnAngle: 20
   _animator: {fileID: 1983033270270637560}
   _wind: {fileID: 1518473432894245345}
   _rotate: {fileID: 8590742871511979132}

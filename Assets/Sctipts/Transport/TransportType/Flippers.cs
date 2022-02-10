@@ -4,6 +4,7 @@ using UnityEngine;
 public class Flippers : Transport
 {
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private float _visibleTurnAngle;
     [SerializeField] private Animator _animator;
     [SerializeField] private ParticleSystem _waterEffect;
     [SerializeField] private Vector3 _currentRoadDirection;
@@ -17,6 +18,7 @@ public class Flippers : Transport
 
     private float _minHorizontalPosition;
     private float _maxHorizontalPosition;
+    private float _defaultRotationY;
 
 
     public override void StartMove()
@@ -39,21 +41,23 @@ public class Flippers : Transport
         _flippersModel.gameObject.SetActive(false);
 
 
-
         if (_currentRoadDirection.x == 1)
         {
             _minHorizontalPosition = transform.position.z - 0.2f;
             _maxHorizontalPosition = transform.position.z + 5.5f;
+            _defaultRotationY = 90;
         }
         else if (_currentRoadDirection.z == 1)
         {
             _minHorizontalPosition = transform.position.x - 5.5f;
             _maxHorizontalPosition = transform.position.x + 0.2f;
+            _defaultRotationY = 0;
         }
         else if (_currentRoadDirection.z == -1)
         {
             _minHorizontalPosition = transform.position.x - 0.2f;
             _maxHorizontalPosition = transform.position.x + 5.5f;
+            _defaultRotationY = 180;
         }
     }
 
@@ -69,7 +73,6 @@ public class Flippers : Transport
 
     private IEnumerator Move()
     {
-        //_input.transform.localRotation = Quaternion.Euler(90,0,90);
         yield return new WaitForSeconds(0.5f);
 
         Vector3 currentDirection = Vector3.zero;
@@ -101,9 +104,10 @@ public class Flippers : Transport
 
             transform.position = new Vector3(transform.position.x, defaultHeight, transform.position.z) +
                                  currentDirection;
-            
-            transform.LookAt(transform.position + currentDirection);
-            transform.Rotate(0,0,-90);
+
+            transform.rotation = Quaternion.Euler(0,
+                 _defaultRotationY - currentHorizontalDirection * _visibleTurnAngle, - 90);
+
             ClampPlayerMovement();
 
             yield return new WaitForFixedUpdate();

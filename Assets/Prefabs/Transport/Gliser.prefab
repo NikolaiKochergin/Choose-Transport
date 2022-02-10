@@ -10070,8 +10070,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 100
   _forwardSpeed: 11
-  _horizontalSpeed: 3
-  _turnSpeed: 1.5
+  _horizontalSpeed: 5
+  _turnSpeed: 5
   _delay: 0.55
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 7998790338383212809}
@@ -10084,6 +10084,7 @@ MonoBehaviour:
   _testSpeed: 0
   _Test: 0
   _input: {fileID: 0}
+  _visibleTurnAngle: 20
   _animator: {fileID: 9128033838130881117}
   _waterEffect: {fileID: 1109130752112913409}
   _currentRoadDirection: {x: 0, y: 0, z: 0}

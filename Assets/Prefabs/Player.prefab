@@ -714,6 +714,7 @@ MonoBehaviour:
   _forwardSpeed: 11
   _horizontalSpeed: 5
   _turnSpeed: 5
+  _visibleTurnAngle: 20
   _player: {fileID: 8098210660812189890}
   _rotater: {fileID: 8098210660812189947}
   _hitJumpCurve:
@@ -722,45 +723,36 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.9800504
-      outSlope: 0.9800504
+      inSlope: 4.0823283
+      outSlope: 4.0823283
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 1
+      outWeight: 0.059004806
     - serializedVersion: 3
-      time: 0.5056853
-      value: 0.5019827
-      inSlope: 0.99795735
-      outSlope: 0.99795735
+      time: 0.49034262
+      value: 1.0006857
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
       outWeight: 0.24137393
     - serializedVersion: 3
-      time: 0.5077719
-      value: 0.000984937
-      inSlope: -1.033906
-      outSlope: -1.033906
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.99236053
-    - serializedVersion: 3
       time: 0.9919739
-      value: -0.49712753
-      inSlope: -1.0156673
-      outSlope: -1.0156673
+      value: 0.010318756
+      inSlope: -2.5787146
+      outSlope: -2.5787146
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.995262
+      inWeight: 0.09063524
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _hitJumpDuration: 0.25
-  _zHitSpeed: 400
-  _yHitSpeed: 400
+  _hitJumpDuration: 0.4
+  _zHitSpeed: 10
+  _yHitSpeed: 6
   _finishMovementSpeed: 10
   _testSpeed: 5000
   _Test: 0

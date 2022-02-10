@@ -4,6 +4,7 @@ using UnityEngine;
 public class Gliser : Transport, ISwim
 {
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private float _visibleTurnAngle;
     [SerializeField] private Animator _animator;
     [SerializeField] private ParticleSystem _waterEffect;
     [SerializeField] private Vector3 _currentRoadDirection;
@@ -13,6 +14,7 @@ public class Gliser : Transport, ISwim
 
     private float _minHorizontalPosition;
     private float _maxHorizontalPosition;
+    private float _defaultRotationY;
 
     public override void StartMove()
     {
@@ -30,18 +32,20 @@ public class Gliser : Transport, ISwim
         {
             _minHorizontalPosition = transform.position.z - 5.5f;
             _maxHorizontalPosition = transform.position.z + 0.6f;
+            _defaultRotationY = 0;
         }
         else if (_currentRoadDirection.z == 1)
         {
             _minHorizontalPosition = transform.position.x - 0.6f;
             _maxHorizontalPosition = transform.position.x + 5.5f;
+            _defaultRotationY = -90;
         }
         else if (_currentRoadDirection.z == -1)
         {
             _minHorizontalPosition = transform.position.x - 5.5f;
             _maxHorizontalPosition = transform.position.x + 0.6f;
+            _defaultRotationY = 90;
         }
-
     }
 
     public override void StopMove()
@@ -55,7 +59,6 @@ public class Gliser : Transport, ISwim
 
     private IEnumerator Move()
     {
-        //_input.transform.localRotation = Quaternion.Euler(0,-90,0);
         yield return new WaitForSeconds(0.85f);
         _animator.enabled = true;
 
@@ -88,9 +91,9 @@ public class Gliser : Transport, ISwim
 
             transform.position = new Vector3(transform.position.x, defaultHeight, transform.position.z) +
                                  currentDirection;
-            
-            transform.LookAt(transform.position + currentDirection);
-            transform.Rotate(0,-90,0);
+
+            transform.rotation = Quaternion.Euler(0,
+                _defaultRotationY- currentHorizontalDirection * _visibleTurnAngle, 0);
             ClampPlayerMovement();
 
             yield return new WaitForFixedUpdate();
@@ -101,7 +104,7 @@ public class Gliser : Transport, ISwim
     {
         // запусить анимацию покачивания.
     }
-    
+
     private void ClampPlayerMovement()
     {
         if (_currentRoadDirection.x == 1 || _currentRoadDirection.x == -1)

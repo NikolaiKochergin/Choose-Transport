@@ -963,8 +963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _price: 10
   _forwardSpeed: 11
-  _horizontalSpeed: 4
-  _turnSpeed: 4
+  _horizontalSpeed: 5
+  _turnSpeed: 5
   _delay: 0
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 918659605898509733}
@@ -977,6 +977,7 @@ MonoBehaviour:
   _testSpeed: 0
   _Test: 0
   _input: {fileID: 0}
+  _visibleTurnAngle: 20
   _animator: {fileID: 9059683541710508038}
   _windEffect: {fileID: 6313398812533547395}
   _currentRoadDirection: {x: 0, y: 0, z: 0}
