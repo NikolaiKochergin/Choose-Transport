@@ -1572,7 +1572,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3858468383809279261, guid: 7b95dd7e99c9062478c6fc15bb85d284, type: 3}
       propertyPath: _hitJumpDirection
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3858468383809279263, guid: 7b95dd7e99c9062478c6fc15bb85d284, type: 3}
       propertyPath: m_Name
@@ -4364,6 +4364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panel: {fileID: 811486033}
   _continueButton: {fileID: 811486031}
+  _startPanelAnimator: {fileID: 0}
 --- !u!114 &1081374894
 MonoBehaviour:
   m_ObjectHideFlags: 0

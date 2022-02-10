@@ -710,6 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 8098210660812189950}
+  _playerCollider: {fileID: 8098210660812189888}
   _roadWeight: 4
   _forwardSpeed: 11
   _horizontalSpeed: 5

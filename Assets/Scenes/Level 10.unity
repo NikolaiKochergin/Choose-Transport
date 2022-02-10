@@ -344,6 +344,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1162848740669526338, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162848740669526338, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162848740669526338, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.16
+      objectReference: {fileID: 0}
     - target: {fileID: 1162848741372089016, guid: d231299bb18698d498182c0e9e5c4890, type: 3}
       propertyPath: _input
       value: 
@@ -5311,6 +5323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panel: {fileID: 764497583}
   _continueButton: {fileID: 764497584}
+  _startPanelAnimator: {fileID: 0}
 --- !u!114 &1081374894
 MonoBehaviour:
   m_ObjectHideFlags: 0
