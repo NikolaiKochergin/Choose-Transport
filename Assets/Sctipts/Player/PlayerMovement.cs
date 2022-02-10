@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private Collider _playerCollider;
     [SerializeField] private float _roadWeight;
     [SerializeField] private float _forwardSpeed;
     [SerializeField] private float _horizontalSpeed;
@@ -253,17 +254,17 @@ public class PlayerMovement : MonoBehaviour
             if (_currentRoadDirection.x == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed/2,
                         transform.position.z + _zHitSpeed * direction), progress);
             else if (_currentRoadDirection.z == 1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x + _zHitSpeed * direction,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed/2,
                         transform.position.z), progress);
             else if (_currentRoadDirection.z == -1)
                 transform.position = Vector3.Lerp(transform.position,
                     new Vector3(transform.position.x - _zHitSpeed * direction,
-                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed/2,
                         transform.position.z), progress);
 
             yield return new WaitForFixedUpdate();
@@ -329,6 +330,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator ExceptionSelectedTransportMovement(Transform targetJumpPosition)
     {
         StopMove();
+        _playerCollider.enabled = false;
 
         Vector3 startThrowBackPosition = transform.position;
 
@@ -347,6 +349,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, _targetYPosition, transform.position.z);
+
+        _playerCollider.enabled = true;
         StartMove();
     }
 
@@ -362,11 +366,26 @@ public class PlayerMovement : MonoBehaviour
         {
             elapsedTime += Time.fixedDeltaTime;
             float progress = elapsedTime / _hitJumpDuration;
+            if (_currentRoadDirection.x == 1)
+                transform.position = Vector3.Lerp(transformPosition,
+                    new Vector3(transformPosition.x - 8,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transform.position.z), progress);
+            else if (_currentRoadDirection.z == 1)
+            {
+                transform.position = Vector3.Lerp(transformPosition,
+                    new Vector3(transform.position.x,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transformPosition.z - 8), progress);
+            }
+            else if (_currentRoadDirection.z == -1)
+            {
+                transform.position = Vector3.Lerp(transformPosition,
+                    new Vector3(transform.position.x,
+                        _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
+                        transformPosition.z + 8), progress);
+            }
 
-            transform.position = Vector3.Lerp(transformPosition,
-                new Vector3(transformPosition.x - 8,
-                    _targetYPosition + _hitJumpCurve.Evaluate(progress) * _yHitSpeed,
-                    transform.position.z), progress);
             yield return new WaitForFixedUpdate();
         }
     }

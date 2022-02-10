@@ -751,7 +751,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _hitJumpDuration: 0.4
-  _zHitSpeed: 10
+  _zHitSpeed: 0.5
   _yHitSpeed: 6
   _finishMovementSpeed: 10
   _testSpeed: 5000
