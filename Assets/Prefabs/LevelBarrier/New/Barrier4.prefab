@@ -100,7 +100,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -197,7 +196,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -441,7 +439,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -588,7 +585,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1785,10 +1781,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7382217737674656434}
     - target: {fileID: 427223851858539879, guid: b3768d46f3e6bc64b9515245b83edb30, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 1800
-      objectReference: {fileID: 0}
-    - target: {fileID: 427223851858539879, guid: b3768d46f3e6bc64b9515245b83edb30, type: 3}
       propertyPath: _moveDirection.x
       value: 1
       objectReference: {fileID: 0}
@@ -1851,6 +1843,14 @@ PrefabInstance:
     - target: {fileID: 7407669911825863781, guid: b3768d46f3e6bc64b9515245b83edb30, type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407669911825863781, guid: b3768d46f3e6bc64b9515245b83edb30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1423
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407669911825863781, guid: b3768d46f3e6bc64b9515245b83edb30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.169
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3768d46f3e6bc64b9515245b83edb30, type: 3}
@@ -2125,10 +2125,6 @@ PrefabInstance:
       value: 1900
       objectReference: {fileID: 0}
     - target: {fileID: 2685961173869495004, guid: 8b793100f3b341644aa646eda4b98a18, type: 3}
-      propertyPath: _horizontalSpeed
-      value: 1600
-      objectReference: {fileID: 0}
-    - target: {fileID: 2685961173869495004, guid: 8b793100f3b341644aa646eda4b98a18, type: 3}
       propertyPath: _moveDirection.x
       value: 1
       objectReference: {fileID: 0}
@@ -2139,6 +2135,14 @@ PrefabInstance:
     - target: {fileID: 7269703525212155128, guid: 8b793100f3b341644aa646eda4b98a18, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091658746680985829, guid: 8b793100f3b341644aa646eda4b98a18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091658746680985829, guid: 8b793100f3b341644aa646eda4b98a18, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b793100f3b341644aa646eda4b98a18, type: 3}

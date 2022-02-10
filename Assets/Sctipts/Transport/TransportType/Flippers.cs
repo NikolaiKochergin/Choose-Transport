@@ -1,13 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Flippers : Transport
 {
     [SerializeField] private PlayerInput _input;
+    [SerializeField] private float _visibleTurnAngle;
     [SerializeField] private Animator _animator;
     [SerializeField] private ParticleSystem _waterEffect;
-    [SerializeField] private Vector3 _moveDirection;
+    [SerializeField] private Vector3 _currentRoadDirection;
     [SerializeField] private Transform _swimPositon;
     [SerializeField] private ParticleSystem _dustEffect;
     [SerializeField] private GameObject _flippersModel;
@@ -18,6 +18,7 @@ public class Flippers : Transport
 
     private float _minHorizontalPosition;
     private float _maxHorizontalPosition;
+    private float _defaultRotationY;
 
 
     public override void StartMove()
@@ -40,21 +41,23 @@ public class Flippers : Transport
         _flippersModel.gameObject.SetActive(false);
 
 
-
-        if (_moveDirection.x == 1)
+        if (_currentRoadDirection.x == 1)
         {
             _minHorizontalPosition = transform.position.z - 0.2f;
             _maxHorizontalPosition = transform.position.z + 5.5f;
+            _defaultRotationY = 90;
         }
-        else if (_moveDirection.z == 1)
+        else if (_currentRoadDirection.z == 1)
         {
             _minHorizontalPosition = transform.position.x - 5.5f;
             _maxHorizontalPosition = transform.position.x + 0.2f;
+            _defaultRotationY = 0;
         }
-        else if (_moveDirection.z == -1)
+        else if (_currentRoadDirection.z == -1)
         {
             _minHorizontalPosition = transform.position.x - 0.2f;
             _maxHorizontalPosition = transform.position.x + 5.5f;
+            _defaultRotationY = 180;
         }
     }
 
@@ -62,7 +65,7 @@ public class Flippers : Transport
     {
         _player.RemoveFlippers();
         StopCoroutine(_move);
-        _speed = 0;
+        _forwardSpeed = 0;
 
         _waterEffect.Stop();
         _waterEffect.gameObject.SetActive(false);
@@ -72,60 +75,56 @@ public class Flippers : Transport
     {
         yield return new WaitForSeconds(0.5f);
 
+        Vector3 currentDirection = Vector3.zero;
         float defaultHeight = transform.position.y;
+        float currentHorizontalDirection = 0;
 
         while (true)
         {
-            float horizontalDirection = _input.InputDirection();
+            float targetHorizontalDirection = _input.InputDirection() * -1;
 
-            float targetHorizontalPosition = 0;
+            currentHorizontalDirection = Mathf.MoveTowards(currentHorizontalDirection, targetHorizontalDirection,
+                _turnSpeed * Time.fixedDeltaTime);
 
-            if (_moveDirection.x == 1)
-                targetHorizontalPosition = transform.position.z + -horizontalDirection * _horizontalSpeed;
-            else if (_moveDirection.z == 1)
-                targetHorizontalPosition = transform.position.x - -horizontalDirection * _horizontalSpeed;
-            else if (_moveDirection.z == -1)
-                targetHorizontalPosition = transform.position.x - horizontalDirection * _horizontalSpeed;
+            if (_currentRoadDirection.x == 1)
+            {
+                currentDirection = new Vector3(_forwardSpeed, 0, currentHorizontalDirection * _horizontalSpeed) *
+                                   Time.fixedDeltaTime;
+            }
+            else if (_currentRoadDirection.z == -1)
+            {
+                currentDirection = new Vector3(currentHorizontalDirection * _horizontalSpeed, 0, -_forwardSpeed) *
+                                   Time.fixedDeltaTime;
+            }
+            else if (_currentRoadDirection.z == 1)
+            {
+                currentDirection = new Vector3(-currentHorizontalDirection * _horizontalSpeed, 0, _forwardSpeed) *
+                                   Time.fixedDeltaTime;
+            }
 
-            targetHorizontalPosition = GetTargetZPosition(targetHorizontalPosition);
+            transform.position = new Vector3(transform.position.x, defaultHeight, transform.position.z) +
+                                 currentDirection;
 
-            Vector3 targetPosition = new Vector3();
+            transform.rotation = Quaternion.Euler(0,
+                 _defaultRotationY - currentHorizontalDirection * _visibleTurnAngle, - 90);
 
-            if (_moveDirection.x == 1)
-                targetPosition = new Vector3(transform.position.x + _speed, defaultHeight, targetHorizontalPosition);
-            else if (_moveDirection.z == 1)
-                targetPosition = new Vector3(targetHorizontalPosition, defaultHeight, transform.position.z + _speed);
-            else if (_moveDirection.z == -1)
-                targetPosition = new Vector3(targetHorizontalPosition, defaultHeight, transform.position.z - _speed);
+            ClampPlayerMovement();
 
-            transform.position = Vector3.Lerp(transform.position, targetPosition, 0.0056f * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
     }
 
-    private float GetTargetZPosition(float targetHorizontalPosition)
+    private void ClampPlayerMovement()
     {
-        if (_moveDirection.x == 1)
+        if (_currentRoadDirection.x == 1 || _currentRoadDirection.x == -1)
         {
-            if (transform.position.z > _maxHorizontalPosition)
-                targetHorizontalPosition = transform.position.z - _horizontalSpeed * Time.deltaTime;
-            else if (transform.position.z < _minHorizontalPosition)
-                targetHorizontalPosition = transform.position.z + _horizontalSpeed * Time.deltaTime;
+            float zPosition = Mathf.Clamp(transform.position.z, _minHorizontalPosition, _maxHorizontalPosition);
+            transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
         }
-        else if (_moveDirection.z == 1)
+        else
         {
-            if (transform.position.x > _maxHorizontalPosition)
-                targetHorizontalPosition = transform.position.x - _horizontalSpeed * Time.deltaTime;
-            else if (transform.position.x < _minHorizontalPosition)
-                targetHorizontalPosition = transform.position.x + _horizontalSpeed * Time.deltaTime;
+            float xPosition = Mathf.Clamp(transform.position.x, _minHorizontalPosition, _maxHorizontalPosition);
+            transform.position = new Vector3(xPosition, transform.position.y, transform.position.z);
         }
-        else if (_moveDirection.z == -1)
-        {
-            if (transform.position.x > _maxHorizontalPosition)
-                targetHorizontalPosition = transform.position.x - _horizontalSpeed * Time.deltaTime;
-            else if (transform.position.x < _minHorizontalPosition)
-                targetHorizontalPosition = transform.position.x + _horizontalSpeed * Time.deltaTime;
-        }
-        return targetHorizontalPosition;
     }
 }

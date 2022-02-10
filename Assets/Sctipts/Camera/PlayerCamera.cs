@@ -1,16 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;   
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] private Transform _camera;
+    [SerializeField] [Range(0f, 1f)] private float _moveSpeed;
     [SerializeField] private float _cutSceneDuration;
-    [SerializeField] private float _cutSceneSpeed;
-    [SerializeField] private float _rotateSpeed;
-    [SerializeField] private Transform _rotateFollowPosition;
-    [SerializeField] private float _moveRotateSpeed;
+    [SerializeField] [Min(0.1f)] private float _turnDuration;
 
     private bool _needFollow = true;
     private Vector3 _offset;
@@ -21,9 +18,9 @@ public class PlayerCamera : MonoBehaviour
     {
         _player.Failed += OnPlayerFailed;
         _player.ShowCutScene += ShowCutScene;
-        _player.RotateZoneEnded += OnPlayerRotate;        
+        _player.RotateZoneEnded += OnPlayerRotate;
 
-        _offset = _player.transform.position - transform.position;
+        transform.position = _player.transform.position;
         _currentDirection = new Vector3(1, 0, 0);
     }
 
@@ -38,8 +35,7 @@ public class PlayerCamera : MonoBehaviour
     {
         if (_needFollow)
         {
-            Vector3 desiredPosition = _player.transform.position - _offset;
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, _moveSpeed );
+            transform.position = Vector3.Lerp(transform.position, _player.transform.position, _moveSpeed);
         }
     }
 
@@ -62,39 +58,23 @@ public class PlayerCamera : MonoBehaviour
 
     private IEnumerator CutSceneMove(Transform targetPosition)
     {
+        Vector3 offset = new Vector3(0, 2.5f, 0);
         float elapsedTime = 0;
         while (elapsedTime < _cutSceneDuration)
         {
             elapsedTime += Time.deltaTime;
+            
+            _camera.LookAt(_player.transform.position + offset);
 
-            Vector3 direction = targetPosition.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.04f);
-
-            if (_currentDirection.x == 1)
-            {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + _cutSceneSpeed, transform.position.y, transform.position.z), _rotateSpeed);
-            }
-            else if (_currentDirection.z == 1)
-            {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + _cutSceneSpeed), _rotateSpeed);
-            }
-            else if (_currentDirection.z == -1)
-            {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z - _cutSceneSpeed), _rotateSpeed);
-            }
-
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
     }
 
     private void OnPlayerRotate(RotateZone zone)
     {
-
         _rotate = Rotate(zone.RotateDirection);
 
         StartCoroutine(_rotate);
-        StartCoroutine(MoveToRotatePosition(_rotateFollowPosition));
 
         if (zone.RotateDirection == 1)
         {
@@ -108,41 +88,33 @@ public class PlayerCamera : MonoBehaviour
             if (_currentDirection.x == 1)
                 _currentDirection = new Vector3(0, 0, 1);
             else if (_currentDirection.z == -1)
-                _currentDirection = new Vector3(1,0,0);
+                _currentDirection = new Vector3(1, 0, 0);
         }
     }
 
     private IEnumerator Rotate(int direction)
     {
+        float yTargetRotation;
 
-        float yTargetRotation = 0;
-
-        if(direction == 1)        
-            yTargetRotation = transform.rotation.eulerAngles.y + 90;        
+        if (direction == 1)
+            yTargetRotation = transform.rotation.eulerAngles.y + 90;
         else
             yTargetRotation = transform.rotation.eulerAngles.y - 90;
-            
-        _needFollow = false;
 
-        Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yTargetRotation, transform.rotation.eulerAngles.z);
+        Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, yTargetRotation,
+            transform.rotation.eulerAngles.z);
 
-            while (yTargetRotation != transform.rotation.eulerAngles.y)
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotateSpeed);
-                yield return null;
-            }
+        float rotateSpeed = Quaternion.Angle(transform.rotation, targetRotation) / _turnDuration;
+        float currentTime = _turnDuration;
 
-        _offset = _player.transform.position - transform.position;
-        _needFollow = true;
-    }
-
-    private IEnumerator MoveToRotatePosition(Transform targetPosition)
-    {
-        while (transform.position != targetPosition.position)
+        while (currentTime > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition.position, _moveRotateSpeed);
-
+            currentTime -= Time.deltaTime;
+            transform.rotation =
+                Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
             yield return null;
         }
+
+        transform.rotation = targetRotation;
     }
 }

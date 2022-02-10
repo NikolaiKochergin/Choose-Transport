@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _exitDelay;
     [SerializeField] private float _exitMoveSpeed;
     [SerializeField] private float _rotateMoveSpeed;
-    [SerializeField] private float _rotateSpeed;
+    [SerializeField][Min(0.1f)] private float _rotateDuration;
 
     [SerializeField] private GameObject[] _flippersParents;
 
@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
     public bool IsUseTransport => _isUseTransport;
 
     public int Coins => _wallet.Coins;
+
+    public Transform Model => _model.transform;
 
     private void OnEnable()
     {        
@@ -232,6 +234,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator PlayAnimationWithDelay(Transport transport)
     {
+        _movement.StopLookAtDirection();
+        
         yield return new WaitForSeconds(transport.DelayBeforePlayAnimation);
         StartedUseTransport?.Invoke(transport.NameUseAnimation);
         yield return new WaitForSeconds(transport.Delay);
@@ -279,6 +283,7 @@ public class Player : MonoBehaviour
         _model.transform.localPosition = new Vector3(0, 0, 0);
         StartMove();
         transform.localRotation = Quaternion.Euler(_defaultRotation);
+        _movement.StartLookAtDirection();
     }
 
     private IEnumerator MoveToRotateTarget(RotateZone zone)
@@ -289,8 +294,8 @@ public class Player : MonoBehaviour
 
             while (transform.position.x != zone.EndRotatePosition.position.x)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed );
-                yield return null;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.fixedDeltaTime );
+                yield return new WaitForFixedUpdate();
             }
         }
         else if ( _currentDirection.z == 1|_currentDirection.z == -1)
@@ -299,8 +304,8 @@ public class Player : MonoBehaviour
 
             while (transform.position.z != zone.EndRotatePosition.position.z)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed );
-                yield return null;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _rotateMoveSpeed * Time.fixedDeltaTime);
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -340,20 +345,21 @@ public class Player : MonoBehaviour
         }
         RotateZoneEnded?.Invoke(zone);
 
-        Quaternion targetRotation = Quaternion.Euler(transform.eulerAngles.x, TargetRotation, transform.eulerAngles.z);      
+        Quaternion targetRotation = Quaternion.Euler(transform.eulerAngles.x, TargetRotation, transform.eulerAngles.z);
+
+        float rotateSpeed = Quaternion.Angle(targetRotation, transform.rotation) / _rotateDuration;
+        float timer = _rotateDuration;
         
-        while(transform.rotation != targetRotation)
+        while(timer > 0)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotateSpeed);
-            yield return null;
+            timer -= Time.deltaTime;
+            
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
         }
         
         transform.rotation = targetRotation;
         _defaultRotation = transform.rotation.eulerAngles;
         _rotater.EndRotate();
-
-
-
-        yield return null;
     }
 }

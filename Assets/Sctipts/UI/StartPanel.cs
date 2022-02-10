@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -6,6 +7,15 @@ public class StartPanel : MonoBehaviour
 {
     [SerializeField] private GameObject _panel;
     [SerializeField] private Button _continueButton;
+
+    public Animator _startPanelAnimator;
+
+    private void Awake()
+    {
+        _startPanelAnimator = _panel.GetComponent<Animator>();
+        if (_startPanelAnimator == null)
+            throw new ArgumentNullException(nameof(_startPanelAnimator));
+    }
 
     public event UnityAction ContinueButtonClicked;
 
@@ -17,7 +27,7 @@ public class StartPanel : MonoBehaviour
 
     public void ClosePanel()
     {
-        _panel.SetActive(false);
+        _startPanelAnimator.SetTrigger(StartPanelAnimatorParams.FadeOut);
         _continueButton.onClick.RemoveListener(OnContinueButtonClick);
     }
 

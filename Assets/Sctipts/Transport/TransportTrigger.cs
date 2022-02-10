@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,12 +7,13 @@ public class TransportTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>())
+        var player = other.GetComponent<Player>();
+
+        if (player)
         {
-            if (!other.GetComponent<Player>().IsUseTransport)
+            if (player.IsUseTransport == false)
             {
                 TransportSelected?.Invoke(other.GetComponent<Player>());
-                gameObject.SetActive(false);
             }
         }
     }

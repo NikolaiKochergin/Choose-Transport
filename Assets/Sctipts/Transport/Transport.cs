@@ -6,8 +6,9 @@ using UnityEngine.Events;
 public class Transport : MonoBehaviour
 {
     [SerializeField] private int _price;
-    [SerializeField] protected float _speed;
+    [SerializeField] protected float _forwardSpeed;
     [SerializeField] protected float _horizontalSpeed;
+    [SerializeField] protected float _turnSpeed;
     [SerializeField] protected float _delay;
     [SerializeField] protected float _delayBeforeStartUseAnimation;
     [SerializeField] private TransportTrigger _trigger;
@@ -70,6 +71,7 @@ public class Transport : MonoBehaviour
         {
             if (player.IsHaveEnoughMoney(_price))
             {
+                _trigger.gameObject.SetActive(false);
                 player.StartUseTransport(this);
                 Activate();
                 StartedUse?.Invoke();

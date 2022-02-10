@@ -84,8 +84,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _price: 20
-  _speed: 900
-  _horizontalSpeed: 900
+  _forwardSpeed: 11
+  _horizontalSpeed: 4
+  _turnSpeed: 4
   _delay: 0
   _delayBeforeStartUseAnimation: 0
   _trigger: {fileID: 7946017650867204198}
@@ -98,8 +99,9 @@ MonoBehaviour:
   _testSpeed: 0
   _Test: 0
   _input: {fileID: 0}
+  _visibleTurnAngle: 20
   _animator: {fileID: 2199465982952830983}
-  _moveDirection: {x: 0, y: 0, z: 0}
+  _currentRoadDirection: {x: 0, y: 0, z: 0}
   _dirtEffect: {fileID: 5271916267645607951}
 --- !u!54 &188083696724818385
 Rigidbody:
@@ -287,7 +289,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -369,7 +370,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -454,7 +454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6849160521195941749}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.2041, y: -0.0486, z: -0.1306}
+  m_LocalPosition: {x: 0.0843, y: -0.0486, z: -0.1182}
   m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
   m_Children: []
   m_Father: {fileID: 110374928254661032}
@@ -511,7 +511,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
