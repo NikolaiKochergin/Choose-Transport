@@ -457,6 +457,7 @@ MonoBehaviour:
   _wallet: {fileID: 8098210660812189889}
   _coinsText: {fileID: 8098210660674103783}
   _player: {fileID: 8098210660812189890}
+  _moneyContainer: {fileID: 8098210660951424467}
   _moneyPrefab: {fileID: 6047573071684379516, guid: a023376bda8a7d741b7c96069f2b0316, type: 3}
   _spawnPoints:
   - {fileID: 8098210660609971628}
@@ -513,7 +514,7 @@ MonoBehaviour:
   - {fileID: 8098210661503397923}
   - {fileID: 8098210661374089882}
   - {fileID: 8098210661774067167}
-  _moneyForChangeBag: 100
+  _moneyForChangeBag: 20
   _speedChangeMoney: 0.1
 --- !u!1 &8098210660756688205
 GameObject:

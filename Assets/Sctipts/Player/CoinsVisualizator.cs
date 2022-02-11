@@ -9,7 +9,7 @@ public class CoinsVisualizator : MonoBehaviour
     [SerializeField] private TMP_Text _coinsText;
     [SerializeField] private Player _player;
 
-   // [SerializeField] private GameObject _moneyContainer;
+    [SerializeField] private GameObject _moneyContainer;
     [SerializeField] private GameObject _moneyPrefab;
 
     [SerializeField] private Transform[] _spawnPoints;
@@ -26,7 +26,7 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void OnEnable()
     {
-        //_currentConis = _wallet.Coins;
+        _currentConis = _wallet.Coins;
 
         _wallet.CoinsChanged += CoinsChanged;
 
@@ -68,7 +68,7 @@ public class CoinsVisualizator : MonoBehaviour
             int moneyCount = (currentCoins - _currentConis) / _moneyForChangeBag;
             if (moneyCount >= 1)
             {
-               // AddMoneyOnContainer(moneyCount);
+                AddMoneyOnContainer(moneyCount);
                 _currentConis = currentCoins;
             }
         }
@@ -78,7 +78,7 @@ public class CoinsVisualizator : MonoBehaviour
 
             if (moneyCount >= 1)
             {
-              //  RemoveMoneyOnContainer(moneyCount);
+                RemoveMoneyOnContainer(moneyCount);
                 _currentConis = currentCoins;
             }
         }
@@ -86,18 +86,18 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void DisableText()
     {
-    //    _moneyContainer.SetActive(false);
+        _moneyContainer.SetActive(false);
         _coinsText.gameObject.SetActive(false);
     }
     private void StartUseTransport(string text)
     {
-  //      _moneyContainer.SetActive(false);
+        _moneyContainer.SetActive(false);
         _coinsText.gameObject.SetActive(true);
     }
 
     private void ActivateText()
     {
-   //     _moneyContainer.SetActive(true);
+        _moneyContainer.SetActive(true);
         _coinsText.gameObject.SetActive(true);
     }
 
@@ -105,8 +105,8 @@ public class CoinsVisualizator : MonoBehaviour
     {
         if(_addMoney!=null)
             StopCoroutine(_addMoney);
-      //  _addMoney = AddMoney(moneyCount);
-      //  StartCoroutine(_addMoney);
+        _addMoney = AddMoney(moneyCount);
+        StartCoroutine(_addMoney);
     }
 
     private void RemoveMoneyOnContainer(int moneyCount)
@@ -120,9 +120,9 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void SpawnMoney(Vector3 position)
     {
-      //  var money = Instantiate(_moneyPrefab, _moneyContainer.transform);
-     //   money.transform.position = position;
-    //    _spawnedMoney.Add(money);
+        var money = Instantiate(_moneyPrefab, _moneyContainer.transform);
+        money.transform.position = position;
+        _spawnedMoney.Add(money);
     }
 
     private IEnumerator AddMoney(int count)
