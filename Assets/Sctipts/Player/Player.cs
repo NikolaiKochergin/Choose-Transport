@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject _model;
     [SerializeField] private PlayerMovement _movement;
+    [SerializeField] private Transform _moneyContainer;
     [SerializeField] private float _exitDelay;
     [SerializeField] private float _exitMoveSpeed;
     [SerializeField] private float _rotateMoveSpeed;

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Money : MonoBehaviour
@@ -11,9 +12,9 @@ public class Money : MonoBehaviour
     public void CollideWithPlayer()
     {
         GetComponent<Collider>().enabled = false;
-        _moneyEffect.gameObject.SetActive(true);
-        _moneyEffect.Play();
+        
+        //_moneyEffect.gameObject.SetActive(true);
+        //_moneyEffect.Play();
         _moneyObject.gameObject.SetActive(false);
     }
-
 }
