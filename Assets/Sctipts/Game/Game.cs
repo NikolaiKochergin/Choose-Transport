@@ -19,7 +19,7 @@ public class Game : MonoBehaviour
     {
         Amplitude amplitude = Amplitude.Instance;
         amplitude.logging = true;
-        amplitude.init("65809c24b2721abc545fa492bab0a53c");
+        amplitude.init("ded957f7f15088ba152d1f4bd0f97ec3");
 
         _data.Load();
 

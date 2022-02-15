@@ -48,7 +48,6 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -165,12 +164,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2009904950260047881}
   m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
 --- !u!1 &2009904950508515702
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,8 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priceText: {fileID: 2009904950260047882}
   _isLastZone: 0
-  _price: 100
-  _transport: {fileID: 0}
+  _price: 500
+  _selectEffect: {fileID: 0}
+  _avoidEffect: {fileID: 0}
   _number: 4
   _playerMovementTarget: {fileID: 820882569518479400}
   _cameraTarget: {fileID: 4441360431333632659}
@@ -293,7 +293,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -450,7 +449,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

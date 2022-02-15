@@ -47,7 +47,7 @@ public class Transport : MonoBehaviour
         {
             Money money = other.GetComponent<Money>();
             _player.CollideWithMoneyOnTransport(money);
-            money.CollideWithPlayer();
+            money.CollideWithPlayer(true);
         }
     }
 

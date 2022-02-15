@@ -36,15 +36,20 @@ public class Finish : MonoBehaviour
         if (_player.Coins >= zone.Price)
         {
             _selectedZone = zone;
+            
             if (!zone.IsLastZone)
             {
-                if (_selectedZones[zone.Number + 1].Price > _player.Coins)
+                if (_selectedZones[zone.Number + 1].Price > _player.Coins - zone.Price)
                 {
+                    _player.SelectFinishZone(zone);
                     End();
                     zone.Select();
                 }
                 else
+                {
+                    _player.AvoidFinishZone(zone);
                     zone.Avoid();
+                }
             }
             else
             {
@@ -52,7 +57,7 @@ public class Finish : MonoBehaviour
                 zone.Select();
             }
         }
-        else
+        else if(_selectedZone == null)
         {
             _player.FailedOnFinish();
         }

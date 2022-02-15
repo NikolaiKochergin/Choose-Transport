@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject _model;
+    [SerializeField] private ParticleSystem _scatterAllMoneyFX;
     [SerializeField] private PlayerMovement _movement;
     [SerializeField] private Transform _moneyContainer;
     [SerializeField] private float _exitDelay;
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
     public event UnityAction StartExitFromTransport;
     public event UnityAction EndExitFromTransport;
 
+    public event UnityAction<int> FinishZoneAvoided;
+
     private int _countException = 0;
     private bool _canUseTransport = true;
     private bool _isUseTransport = false;
@@ -84,7 +87,7 @@ public class Player : MonoBehaviour
             Money money = other.GetComponent<Money>();
 
             CollideWithMoney?.Invoke(money.Coins);
-            money.CollideWithPlayer();
+            money.CollideWithPlayer(_isUseTransport);
         }
         else if (other.GetComponent<MoneyBarrier>())
         {
@@ -109,6 +112,17 @@ public class Player : MonoBehaviour
             CollideWithBarrierWall?.Invoke();
             other.GetComponent<BarrierHitBackZone>().Hit();
         }
+    }
+
+    public void AvoidFinishZone(SelectedZone zone)
+    {
+        FinishZoneAvoided?.Invoke(zone.Price);
+    }
+
+    public void SelectFinishZone(SelectedZone zone)
+    {
+        FinishZoneAvoided?.Invoke(zone.Price);
+        _scatterAllMoneyFX.Play();
     }
 
     public bool IsHaveEnoughMoney(int needCoins)

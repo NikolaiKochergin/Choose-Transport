@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private Player _player;
+    [SerializeField] private Animator _cameraAnimator;
     [SerializeField] private Transform _camera;
     [SerializeField] [Range(0f, 1f)] private float _moveSpeed;
     [SerializeField] private float _cutSceneDuration;
@@ -52,8 +53,9 @@ public class PlayerCamera : MonoBehaviour
 
     private void ShowCutScene(Transform targetPosition)
     {
-        _needFollow = false;
-        StartCoroutine(CutSceneMove(targetPosition));
+        //_needFollow = false;
+        _cameraAnimator.enabled = true;
+        //StartCoroutine(CutSceneMove(targetPosition));
     }
 
     private IEnumerator CutSceneMove(Transform targetPosition)

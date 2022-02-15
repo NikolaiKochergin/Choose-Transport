@@ -36,7 +36,7 @@ public class CoinsVisualizator : MonoBehaviour
         _player.StartedRun += ShowCoins;
         _player.EndUseTransport += ActivateText;
         _player.StartedUseTransport += StartUseTransport;
-        _player.StartedFinishedMove += DisableText;
+        _player.StartedFinishedMove += DisableMoneyContainer;
         _player.Failed += DisableText;
 
         _player.StartedExitFromTransport += DisableText;
@@ -48,7 +48,7 @@ public class CoinsVisualizator : MonoBehaviour
     {
         _wallet.CoinsChanged -= CoinsChanged;
         _player.StartedRun -= ShowCoins;
-        _player.StartedFinishedMove -= DisableText;
+        _player.StartedFinishedMove -= DisableMoneyContainer;
         _player.EndUseTransport -= ActivateText;
         _player.StartedUseTransport -= StartUseTransport;
         _player.Failed -= DisableText;
@@ -78,6 +78,11 @@ public class CoinsVisualizator : MonoBehaviour
         }
     }
 
+    private void DisableMoneyContainer()
+    {
+        _moneyContainer.SetActive(false);
+    }
+    
     private void DisableText()
     {
         _moneyContainer.SetActive(false);
@@ -98,6 +103,8 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void AddMoneyWadOnContainer(int moneyWadCount)
     {
+        if (_removeMoney != null)
+            StopCoroutine(_removeMoney);
         if (_addMoney != null)
             StopCoroutine(_addMoney);
         _addMoney = StartCoroutine(AddMoneyWadTo(moneyWadCount));
@@ -105,6 +112,8 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void RemoveMoneyWadOnContainer(int moneyWadCount)
     {
+        if (_addMoney != null)
+            StopCoroutine(_addMoney);
         if (_removeMoney != null)
             StopCoroutine(_removeMoney);
         _removeMoney = StartCoroutine(RemoveMoneyWadTo(moneyWadCount));
@@ -141,7 +150,7 @@ public class CoinsVisualizator : MonoBehaviour
         for (int i = _spawnedMoneyWads.Count; i > count; i--)
         {
             DestroyMoneyWad(_spawnedMoneyWads[i - 1]);
-            yield return new WaitForSeconds(_speedChangeMoney);
+            yield return new WaitForSeconds(_speedChangeMoney/4);
         }
     }
 }
