@@ -20,7 +20,7 @@ public class Wallet : MonoBehaviour
         _player.CollideWithMoney += OnPlayerCollideWithMoney;
         _player.CollideWithBarrier += OnPlayerCollideWithMoneyBarrier;
         _player.TransportPurchased += OnTransportPurchased;
-        _player.FinishZoneAvoided += OnPlayerCollideWithMoneyBarrier;
+        _player.FinishZoneTaken += OnPlayerCollideWithMoneyBarrier;
     }
 
     private void OnDisable()
@@ -28,7 +28,7 @@ public class Wallet : MonoBehaviour
         _player.CollideWithMoney -= OnPlayerCollideWithMoney;
         _player.CollideWithBarrier -= OnPlayerCollideWithMoneyBarrier;
         _player.TransportPurchased -= OnTransportPurchased;
-        _player.FinishZoneAvoided -= OnPlayerCollideWithMoneyBarrier;
+        _player.FinishZoneTaken -= OnPlayerCollideWithMoneyBarrier;
     }
 
     private void OnPlayerCollideWithMoney(int coins)

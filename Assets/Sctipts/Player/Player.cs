@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public event UnityAction<int> TransportPurchased;
     public event UnityAction<int> Hitted;
     public event UnityAction<Transform> ExceptionSelectedTransport;
-    public event UnityAction StartedFall;
+    //public event UnityAction StartedFall;
     public event UnityAction StartedExitFromTransport;
     public event UnityAction StartedFinishedMove;
     public event UnityAction<Transform> InclinedSurfaceCollided;
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     public event UnityAction StartExitFromTransport;
     public event UnityAction EndExitFromTransport;
 
-    public event UnityAction<int> FinishZoneAvoided;
+    public event UnityAction<int> FinishZoneTaken;
 
     private int _countException = 0;
     private bool _canUseTransport = true;
@@ -114,14 +114,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void AvoidFinishZone(SelectedZone zone)
+    public void TakeFinish(SelectedZone zone)
     {
-        FinishZoneAvoided?.Invoke(zone.Price);
+        FinishZoneTaken?.Invoke(zone.Price);
     }
 
-    public void SelectFinishZone(SelectedZone zone)
+    public void ScatterRemainingMoney(SelectedZone zone)
     {
-        FinishZoneAvoided?.Invoke(zone.Price);
         _scatterAllMoneyFX.Play();
     }
 

@@ -40,10 +40,6 @@ public class TransportDriftRotater : MonoBehaviour
             StartCoroutine(_drift);
             _lastPosition = _currentPosition;
         }
-        else
-        {
-
-        }
     }
 
 
