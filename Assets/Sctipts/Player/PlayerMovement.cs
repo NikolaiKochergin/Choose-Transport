@@ -412,8 +412,6 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, finishRotation, 0.1f);
             yield return null;
         }
-
-        yield return null;
     }
 
     private IEnumerator RotateToFinish()

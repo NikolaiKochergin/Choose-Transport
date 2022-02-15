@@ -30,7 +30,7 @@ public class Transport : MonoBehaviour
     public Transform PlayerParent => _playerParent;
     public Vector3 PlayerCoinsPosition => _playerCoinsPosition.position;
 
-    public event UnityAction TochBarrierFinish;
+    //public event UnityAction TochBarrierFinish;
     public event UnityAction<Player> UsageCancelled;
     public event UnityAction StartedUse;
 
@@ -47,7 +47,7 @@ public class Transport : MonoBehaviour
         {
             Money money = other.GetComponent<Money>();
             _player.CollideWithMoneyOnTransport(money);
-            money.CollideWithPlayer();
+            money.CollideWithPlayer(true);
         }
     }
 

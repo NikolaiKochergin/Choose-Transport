@@ -4118,6 +4118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panel: {fileID: 900454953}
   _continueButton: {fileID: 900454952}
+  _startPanelAnimator: {fileID: 0}
 --- !u!114 &1081374894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7729,10 +7730,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3119690173212270356, guid: ca8e5371e329da24c965ca0cf488089a, type: 3}
-      propertyPath: _price
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3119690173212270356, guid: ca8e5371e329da24c965ca0cf488089a, type: 3}
       propertyPath: _avoidEffect
       value: 
       objectReference: {fileID: 729252156}
@@ -7794,7 +7791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3119690173224275563, guid: ca8e5371e329da24c965ca0cf488089a, type: 3}
       propertyPath: m_fontSize
-      value: 57
+      value: 56.5
       objectReference: {fileID: 0}
     - target: {fileID: 3119690173224275563, guid: ca8e5371e329da24c965ca0cf488089a, type: 3}
       propertyPath: m_margin.w
@@ -8081,7 +8078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1853842023559650484, guid: 500fbe1d75fcc5b4fb955092dedeb674, type: 3}
       propertyPath: m_fontSize
-      value: 57
+      value: 56.5
       objectReference: {fileID: 0}
     - target: {fileID: 1853842023559650484, guid: 500fbe1d75fcc5b4fb955092dedeb674, type: 3}
       propertyPath: m_margin.w
@@ -8168,10 +8165,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1853842023696666059, guid: 500fbe1d75fcc5b4fb955092dedeb674, type: 3}
-      propertyPath: _price
-      value: 3000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853842023696666059, guid: 500fbe1d75fcc5b4fb955092dedeb674, type: 3}
       propertyPath: _avoidEffect
       value: 
       objectReference: {fileID: 126456319}
@@ -8211,10 +8204,6 @@ PrefabInstance:
     - target: {fileID: 1872347360510244346, guid: 8d70864aa386dcd4cbadcf37536e3be3, type: 3}
       propertyPath: m_Center.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1872347360510244348, guid: 8d70864aa386dcd4cbadcf37536e3be3, type: 3}
-      propertyPath: _price
-      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 1872347360510244348, guid: 8d70864aa386dcd4cbadcf37536e3be3, type: 3}
       propertyPath: _avoidEffect
@@ -8278,7 +8267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1872347360530343043, guid: 8d70864aa386dcd4cbadcf37536e3be3, type: 3}
       propertyPath: m_fontSize
-      value: 57
+      value: 56.5
       objectReference: {fileID: 0}
     - target: {fileID: 1872347360530343043, guid: 8d70864aa386dcd4cbadcf37536e3be3, type: 3}
       propertyPath: m_margin.w
@@ -8351,7 +8340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2009904950260047882, guid: 802c7a976262bae4ea9d218471939b80, type: 3}
       propertyPath: m_fontSize
-      value: 57
+      value: 56.5
       objectReference: {fileID: 0}
     - target: {fileID: 2009904950260047882, guid: 802c7a976262bae4ea9d218471939b80, type: 3}
       propertyPath: m_margin.w
@@ -8436,10 +8425,6 @@ PrefabInstance:
     - target: {fileID: 2009904950508515700, guid: 802c7a976262bae4ea9d218471939b80, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2009904950508515701, guid: 802c7a976262bae4ea9d218471939b80, type: 3}
-      propertyPath: _price
-      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 2009904950508515701, guid: 802c7a976262bae4ea9d218471939b80, type: 3}
       propertyPath: _avoidEffect
@@ -8721,7 +8706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6765130141819546648, guid: 13d3c3011a8027a42b7f86a69c0dd726, type: 3}
       propertyPath: m_fontSize
-      value: 57
+      value: 56.5
       objectReference: {fileID: 0}
     - target: {fileID: 6765130141819546648, guid: 13d3c3011a8027a42b7f86a69c0dd726, type: 3}
       propertyPath: m_margin.w
@@ -8814,10 +8799,6 @@ PrefabInstance:
     - target: {fileID: 6765130142007590246, guid: 13d3c3011a8027a42b7f86a69c0dd726, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6765130142007590247, guid: 13d3c3011a8027a42b7f86a69c0dd726, type: 3}
-      propertyPath: _price
-      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6765130142007590247, guid: 13d3c3011a8027a42b7f86a69c0dd726, type: 3}
       propertyPath: _avoidEffect

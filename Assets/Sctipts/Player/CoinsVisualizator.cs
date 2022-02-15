@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,30 +11,32 @@ public class CoinsVisualizator : MonoBehaviour
     [SerializeField] private Player _player;
 
     [SerializeField] private GameObject _moneyContainer;
-    [SerializeField] private GameObject _moneyPrefab;
+    [SerializeField] private MoneyWad _moneyWadPrefab;
+    [SerializeField] private float _offsetY;
 
-    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private Transform[] _placePoints;
     [SerializeField] private int _moneyForChangeBag;
     [SerializeField] private float _speedChangeMoney;
 
-    private List<GameObject> _spawnedMoney = new List<GameObject>();
-    private int _currentNumber=0;
-    private int _spawnedMoneyCount=0;
-    private int _currentConis=0;
+    private List<MoneyWad> _spawnedMoneyWads;
 
-    private IEnumerator _addMoney;
-    private IEnumerator _removeMoney;
+    private Coroutine _addMoney;
+    private Coroutine _removeMoney;
+
+    private void Awake()
+    {
+        _spawnedMoneyWads = new List<MoneyWad>();
+    }
 
     private void OnEnable()
     {
-        _currentConis = _wallet.Coins;
-
         _wallet.CoinsChanged += CoinsChanged;
 
         _player.StartedRun += ShowCoins;
         _player.EndUseTransport += ActivateText;
         _player.StartedUseTransport += StartUseTransport;
-        _player.StartedFinishedMove += DisableText;
+        _player.StartedFinishedMove += DisableMoneyContainer;
         _player.Failed += DisableText;
 
         _player.StartedExitFromTransport += DisableText;
@@ -45,7 +48,7 @@ public class CoinsVisualizator : MonoBehaviour
     {
         _wallet.CoinsChanged -= CoinsChanged;
         _player.StartedRun -= ShowCoins;
-        _player.StartedFinishedMove -= DisableText;
+        _player.StartedFinishedMove -= DisableMoneyContainer;
         _player.EndUseTransport -= ActivateText;
         _player.StartedUseTransport -= StartUseTransport;
         _player.Failed -= DisableText;
@@ -61,34 +64,31 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void CoinsChanged(int currentCoins)
     {
-        _coinsText.text = currentCoins.ToString()+"$";
+        _coinsText.text = currentCoins + "$";
 
-        if (currentCoins > _currentConis )
+        int moneyWadCount = currentCoins / _moneyForChangeBag;
+
+        if (moneyWadCount > _spawnedMoneyWads.Count)
         {
-            int moneyCount = (currentCoins - _currentConis) / _moneyForChangeBag;
-            if (moneyCount >= 1)
-            {
-                AddMoneyOnContainer(moneyCount);
-                _currentConis = currentCoins;
-            }
+            AddMoneyWadOnContainer(moneyWadCount);
         }
-        else if( _currentConis > currentCoins)
+        else if (moneyWadCount < _spawnedMoneyWads.Count)
         {
-            int moneyCount = (_currentConis - currentCoins) / _moneyForChangeBag;
-
-            if (moneyCount >= 1)
-            {
-                RemoveMoneyOnContainer(moneyCount);
-                _currentConis = currentCoins;
-            }
+            RemoveMoneyWadOnContainer(moneyWadCount);
         }
     }
 
+    private void DisableMoneyContainer()
+    {
+        _moneyContainer.SetActive(false);
+    }
+    
     private void DisableText()
     {
         _moneyContainer.SetActive(false);
         _coinsText.gameObject.SetActive(false);
     }
+
     private void StartUseTransport(string text)
     {
         _moneyContainer.SetActive(false);
@@ -101,57 +101,56 @@ public class CoinsVisualizator : MonoBehaviour
         _coinsText.gameObject.SetActive(true);
     }
 
-    private void AddMoneyOnContainer(int moneyCount)
-    {
-        if(_addMoney!=null)
-            StopCoroutine(_addMoney);
-        _addMoney = AddMoney(moneyCount);
-        StartCoroutine(_addMoney);
-    }
-
-    private void RemoveMoneyOnContainer(int moneyCount)
+    private void AddMoneyWadOnContainer(int moneyWadCount)
     {
         if (_removeMoney != null)
             StopCoroutine(_removeMoney);
-
-        _removeMoney = RemoveMoney(moneyCount);
-        StartCoroutine(_removeMoney);
+        if (_addMoney != null)
+            StopCoroutine(_addMoney);
+        _addMoney = StartCoroutine(AddMoneyWadTo(moneyWadCount));
     }
 
-    private void SpawnMoney(Vector3 position)
+    private void RemoveMoneyWadOnContainer(int moneyWadCount)
     {
-        var money = Instantiate(_moneyPrefab, _moneyContainer.transform);
-        money.transform.position = position;
-        _spawnedMoney.Add(money);
+        if (_addMoney != null)
+            StopCoroutine(_addMoney);
+        if (_removeMoney != null)
+            StopCoroutine(_removeMoney);
+        _removeMoney = StartCoroutine(RemoveMoneyWadTo(moneyWadCount));
     }
 
-    private IEnumerator AddMoney(int count)
+    private void SpawnMoneyWad(Vector3 position)
     {
-        for (int i = 0; i < count; i++)
+        MoneyWad moneyWad = Instantiate(_moneyWadPrefab, _moneyContainer.transform);
+        moneyWad.transform.localPosition = position;
+        moneyWad.StartAppear(_spawnPoint);
+        _spawnedMoneyWads.Add(moneyWad);
+    }
+
+    private void DestroyMoneyWad(MoneyWad moneyWad)
+    {
+        _spawnedMoneyWads.Remove(moneyWad);
+        Destroy(moneyWad.gameObject);
+    }
+
+    private IEnumerator AddMoneyWadTo(int count)
+    {
+        for (int i = _spawnedMoneyWads.Count; i < count; i++)
         {
-            if (_spawnedMoneyCount <= _spawnPoints.Length - 1)
-            {
-                SpawnMoney(_spawnPoints[_currentNumber].position);
-                _currentNumber++;
-                _spawnedMoneyCount++;
-            }
+            int index = _spawnedMoneyWads.Count % 2;
+
+            SpawnMoneyWad(_placePoints[index].transform.localPosition + Vector3.up * _offsetY * (i / 2));
+
             yield return new WaitForSeconds(_speedChangeMoney);
         }
     }
 
-    private IEnumerator RemoveMoney(int count)
+    private IEnumerator RemoveMoneyWadTo(int count)
     {
-        for (int i = 0; i < count; i++)
+        for (int i = _spawnedMoneyWads.Count; i > count; i--)
         {
-            if (_spawnedMoneyCount >= 0)
-            {
-                _spawnedMoney[_spawnedMoney.Count - 1].gameObject.SetActive(false);
-                _spawnedMoneyCount--;
-                _currentNumber--;
-            }
-            yield return new WaitForSeconds(_speedChangeMoney);
-                
+            DestroyMoneyWad(_spawnedMoneyWads[i - 1]);
+            yield return new WaitForSeconds(_speedChangeMoney/4);
         }
     }
-
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Money : MonoBehaviour
@@ -8,12 +9,16 @@ public class Money : MonoBehaviour
 
     public int Coins => _coins;
 
-    public void CollideWithPlayer()
+    public void CollideWithPlayer(bool isUseTransport)
     {
         GetComponent<Collider>().enabled = false;
-        _moneyEffect.gameObject.SetActive(true);
-        _moneyEffect.Play();
+
+        if (isUseTransport)
+        {
+            _moneyEffect.gameObject.SetActive(true);
+            _moneyEffect.Play();
+        }
+
         _moneyObject.gameObject.SetActive(false);
     }
-
 }

@@ -30,34 +30,37 @@ public class Finish : MonoBehaviour
         }
     }
 
-
     private void OnZoneSelected(SelectedZone zone)
     {
         if (_player.Coins >= zone.Price)
         {
             _selectedZone = zone;
-            if (!zone.IsLastZone)
-            {
-                if (_selectedZones[zone.Number + 1].Price > _player.Coins)
-                {
-                    End();
-                    zone.Select();
-                }
-                else
-                    zone.Avoid();
-            }
-            else
+            _player.TakeFinish(zone);
+            
+            if (zone.IsLastZone)
             {
                 End();
                 zone.Select();
             }
+            else
+            {
+                if (_selectedZones[zone.Number + 1].Price > _player.Coins)
+                {
+                    _player.ScatterRemainingMoney(zone);
+                    End();
+                    zone.Select();
+                }
+                else
+                {
+                    zone.Avoid();
+                }
+            }
         }
-        else
+        else if(_selectedZone == null)
         {
             _player.FailedOnFinish();
         }
     }
-
 
     private void End()
     {

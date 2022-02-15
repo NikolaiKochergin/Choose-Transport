@@ -14,11 +14,11 @@ public class SelectedZone : MonoBehaviour
     [SerializeField] private Transform _playerMovementTarget;
     [SerializeField] private Transform _cameraTarget;
 
-    private float _delayBeforeStop=0.5f;
+    private float _delayBeforeStop = 0.5f;
     public event UnityAction<SelectedZone> ZoneEntered;
     public event UnityAction LastZoneEntered;
     public int Price => _price;
-    public int Number=> _number;
+    public int Number => _number;
     public float DelayBeforeStop => _delayBeforeStop;
 
     public bool IsLastZone => _isLastZone;
@@ -28,12 +28,14 @@ public class SelectedZone : MonoBehaviour
 
     private void OnEnable()
     {
-        _priceText.text = _price.ToString()+"$";
+        _priceText.text = _price.ToString() + "$";
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>())
+        var player = other.GetComponent<Player>();
+        
+        if (player)
         {
             if (_isLastZone)
                 StartCoroutine(StopWithDelay());
