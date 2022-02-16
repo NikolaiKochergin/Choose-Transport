@@ -17,7 +17,6 @@ public class Finish : MonoBehaviour
         foreach(var zone in _selectedZones)
         {
             zone.ZoneEntered += OnZoneSelected;
-            zone.LastZoneEntered += End;
         }
     }
 
@@ -26,7 +25,6 @@ public class Finish : MonoBehaviour
         foreach (var zone in _selectedZones)
         {
             zone.ZoneEntered -= OnZoneSelected;
-            zone.LastZoneEntered -= End;
         }
     }
 
@@ -39,6 +37,7 @@ public class Finish : MonoBehaviour
             
             if (zone.IsLastZone)
             {
+                _player.ScatterRemainingMoney(zone);
                 End();
                 zone.Select();
             }

@@ -39,7 +39,7 @@ public class CoinsVisualizator : MonoBehaviour
         _player.StartedFinishedMove += DisableMoneyContainer;
         _player.Failed += DisableText;
 
-        _player.StartedExitFromTransport += DisableText;
+        _player.StartedExitFromTransport += DisableMoneyContainer;
         _player.EndExitFromTransport += ActivateText;
     }
 
@@ -53,7 +53,7 @@ public class CoinsVisualizator : MonoBehaviour
         _player.StartedUseTransport -= StartUseTransport;
         _player.Failed -= DisableText;
 
-        _player.StartedExitFromTransport -= DisableText;
+        _player.StartedExitFromTransport -= DisableMoneyContainer;
         _player.EndExitFromTransport -= ActivateText;
     }
 

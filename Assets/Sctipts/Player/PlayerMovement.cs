@@ -447,8 +447,8 @@ public class PlayerMovement : MonoBehaviour
         while (transform.position != targetPosition.position)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition.position,
-                _finishMovementSpeed * Time.deltaTime);
-            yield return null;
+                _finishMovementSpeed * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
         }
 
         Finished?.Invoke();

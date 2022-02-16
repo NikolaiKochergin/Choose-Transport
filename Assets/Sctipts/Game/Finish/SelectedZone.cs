@@ -16,7 +16,6 @@ public class SelectedZone : MonoBehaviour
 
     private float _delayBeforeStop = 0.5f;
     public event UnityAction<SelectedZone> ZoneEntered;
-    public event UnityAction LastZoneEntered;
     public int Price => _price;
     public int Number => _number;
     public float DelayBeforeStop => _delayBeforeStop;

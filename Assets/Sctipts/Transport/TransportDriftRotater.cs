@@ -97,7 +97,7 @@ public class TransportDriftRotater : MonoBehaviour
     public void StopRotate()
     {
         _canRotate = false;
-        //_transform.rotation = Quaternion.Euler(0, _defaultRotation, 0);
+        _transform.rotation = Quaternion.Euler(0, _defaultRotation, 0);
     }
 
     public void StartRotate()
