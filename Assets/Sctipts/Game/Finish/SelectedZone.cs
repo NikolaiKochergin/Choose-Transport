@@ -53,6 +53,7 @@ public class SelectedZone : MonoBehaviour
 
     public void Select()
     {
+        Avoid();
         _selectEffect.gameObject.SetActive(true);
         _selectEffect.Play();
     }

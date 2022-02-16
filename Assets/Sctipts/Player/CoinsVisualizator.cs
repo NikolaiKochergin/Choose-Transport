@@ -82,7 +82,7 @@ public class CoinsVisualizator : MonoBehaviour
     {
         _moneyContainer.SetActive(false);
     }
-    
+
     private void DisableText()
     {
         _moneyContainer.SetActive(false);
@@ -137,9 +137,10 @@ public class CoinsVisualizator : MonoBehaviour
     {
         for (int i = _spawnedMoneyWads.Count; i < count; i++)
         {
-            int index = _spawnedMoneyWads.Count % 2;
+            int index = _spawnedMoneyWads.Count % _placePoints.Length;
 
-            SpawnMoneyWad(_placePoints[index].transform.localPosition + Vector3.up * _offsetY * (i / 2));
+            SpawnMoneyWad(_placePoints[index].transform.localPosition +
+                          Vector3.up * _offsetY * (i / _placePoints.Length));
 
             yield return new WaitForSeconds(_speedChangeMoney);
         }
@@ -150,7 +151,7 @@ public class CoinsVisualizator : MonoBehaviour
         for (int i = _spawnedMoneyWads.Count; i > count; i--)
         {
             DestroyMoneyWad(_spawnedMoneyWads[i - 1]);
-            yield return new WaitForSeconds(_speedChangeMoney/4);
+            yield return new WaitForSeconds(_speedChangeMoney / 4);
         }
     }
 }
