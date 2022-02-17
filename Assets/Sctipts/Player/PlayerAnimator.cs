@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnEnable()
     {
+        _player.IdleBeginig += OnIdleBeginig;
         _player.StartedRun += StartRun;
         _player.StartedUseTransport += UseTransportAnimation;
         _player.Finished += Finished;
@@ -18,6 +19,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnDisable()
     {
+        _player.IdleBeginig -= OnIdleBeginig;
         _player.StartedRun -= StartRun;
         _player.StartedUseTransport -= UseTransportAnimation;
         _player.Finished -= Finished;
@@ -26,6 +28,11 @@ public class PlayerAnimator : MonoBehaviour
         _player.StartedFinishedMove -= StartedFinishedMove;
     }
 
+    private void OnIdleBeginig()
+    {
+        _animator.Play("Idle");
+    }
+    
     private void StartRun()
     {
         _animator.Play("Run");

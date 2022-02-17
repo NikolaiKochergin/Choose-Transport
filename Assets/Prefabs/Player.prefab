@@ -174,8 +174,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8098210660681747057}
   - component: {fileID: 8098210660681747056}
+  - component: {fileID: 1571343787720789525}
   m_Layer: 0
-  m_Name: CoinsVisualizator
+  m_Name: MoneyVisualizator
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -211,6 +212,7 @@ MonoBehaviour:
   _wallet: {fileID: 8098210660812189889}
   _coinsText: {fileID: 5051401375063778137}
   _player: {fileID: 8098210660812189890}
+  _animator: {fileID: 1571343787720789525}
   _moneyContainer: {fileID: 8098210660951424467}
   _moneyWadPrefab: {fileID: -6507781868711407249, guid: 7d0ab5e2f95a6a54c808af98c04e6aea, type: 3}
   _offsetY: 0.1
@@ -219,7 +221,27 @@ MonoBehaviour:
   - {fileID: 8098210662122900945}
   - {fileID: 8098210661573323324}
   _moneyForChangeBag: 20
-  _speedChangeMoney: 0.1
+  _receiveMoneyDuration: 0.3
+  _spendMoneyDuration: 0.5
+--- !u!95 &1571343787720789525
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098210660681747058}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26c6dee66b140954bbd37f1651f17b4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8098210660812189892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,13 +1429,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9bfbc249c62e940aeecf6b6809ddb4, type: 3}
---- !u!4 &8257021201685770183 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 7d9bfbc249c62e940aeecf6b6809ddb4, type: 3}
-  m_PrefabInstance: {fileID: 8257021201686164807}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &8257021201670564487 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 19800000, guid: 7d9bfbc249c62e940aeecf6b6809ddb4, type: 3}
+  m_PrefabInstance: {fileID: 8257021201686164807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8257021201685770183 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 7d9bfbc249c62e940aeecf6b6809ddb4, type: 3}
   m_PrefabInstance: {fileID: 8257021201686164807}
   m_PrefabAsset: {fileID: 0}

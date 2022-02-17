@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
     public event UnityAction Failed;
     public event UnityAction<RotateZone> RotateZoneEntered;
     public event UnityAction<RotateZone> RotateZoneEnded;
-    public event UnityAction<int> TransportPurchased;
+    public event UnityAction<Transport> TransportPurchased;
     public event UnityAction<int> Hitted;
     public event UnityAction<Transform> ExceptionSelectedTransport;
     //public event UnityAction StartedFall;
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour
     public event UnityAction EndExitFromTransport;
 
     public event UnityAction<int> FinishZoneTaken;
+
+    public event Action IdleBeginig;
 
     private int _countException = 0;
     private bool _canUseTransport = true;
@@ -132,12 +135,12 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    public void StartUseTransport(Transport transport)
+    public void StartUseTransport(Transport transport, Action callback)
     {
         _isUseTransport = true;
 
         _countException = 0;
-        _playAnimationWithDelay = PlayAnimationWithDelay(transport);
+        _playAnimationWithDelay = PlayAnimationWithDelay(transport, ()=> callback?.Invoke());
         StartCoroutine(_playAnimationWithDelay);
         
     }
@@ -216,9 +219,6 @@ public class Player : MonoBehaviour
     private void OnFinished()
     {
         Finished?.Invoke();
-       // Vector3 direction = transform.position - _camera.gameObject.transform.position;
-       // Quaternion rotation = Quaternion.LookRotation(direction);
-       // transform.rotation = rotation;
     }
 
     private void OnRotateZoneEntered(RotateZone zone)
@@ -246,11 +246,17 @@ public class Player : MonoBehaviour
         InclinedSurfaceCollided?.Invoke(targetPosition);
     }
 
-    private IEnumerator PlayAnimationWithDelay(Transport transport)
+    private IEnumerator PlayAnimationWithDelay(Transport transport, Action callback)
     {
         _movement.StopLookAtDirection();
         
+        _movement.StopMove();
+        IdleBeginig?.Invoke();
+        TransportPurchased?.Invoke(transport);
         yield return new WaitForSeconds(transport.DelayBeforePlayAnimation);
+        _movement.StartMove();
+        callback?.Invoke();
+
         StartedUseTransport?.Invoke(transport.NameUseAnimation);
         yield return new WaitForSeconds(transport.Delay);
 
@@ -258,7 +264,6 @@ public class Player : MonoBehaviour
         transform.SetParent(transport.PlayerParent);
         transform.position = transport.GetSeetPosition();
         _model.transform.localPosition = new Vector3();
-        TransportPurchased?.Invoke(transport.Price);
         ChangedCoinsVisualizatorPosition?.Invoke(transport.PlayerCoinsPosition);
     }
 
@@ -266,7 +271,6 @@ public class Player : MonoBehaviour
     {
         StartedExitFromTransport?.Invoke();
         StartExitFromTransport?.Invoke();
-        //transform.position = new Vector3(transform.position.x,0,transform.position.z);
         if (_currentDirection.x == 1)
         {
             while (transform.position.x != exitPosition.x)

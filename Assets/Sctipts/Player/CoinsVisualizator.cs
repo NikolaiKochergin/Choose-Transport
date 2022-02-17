@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +8,7 @@ public class CoinsVisualizator : MonoBehaviour
     [SerializeField] private Wallet _wallet;
     [SerializeField] private TMP_Text _coinsText;
     [SerializeField] private Player _player;
+    [SerializeField] private Animator _animator;
 
     [SerializeField] private GameObject _moneyContainer;
     [SerializeField] private MoneyWad _moneyWadPrefab;
@@ -17,7 +17,8 @@ public class CoinsVisualizator : MonoBehaviour
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Transform[] _placePoints;
     [SerializeField] private int _moneyForChangeBag;
-    [SerializeField] private float _speedChangeMoney;
+    [SerializeField] private float _receiveMoneyDuration;
+    [SerializeField] private float _spendMoneyDuration;
 
     private List<MoneyWad> _spawnedMoneyWads;
 
@@ -47,6 +48,7 @@ public class CoinsVisualizator : MonoBehaviour
     private void OnDisable()
     {
         _wallet.CoinsChanged -= CoinsChanged;
+        
         _player.StartedRun -= ShowCoins;
         _player.StartedFinishedMove -= DisableMoneyContainer;
         _player.EndUseTransport -= ActivateText;
@@ -59,10 +61,10 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void ShowCoins()
     {
-        CoinsChanged(_wallet.Coins);
+        _coinsText.text = _wallet.Coins + "$";
     }
 
-    private void CoinsChanged(int currentCoins)
+    private void CoinsChanged(int currentCoins, Transform disappearPoint)
     {
         _coinsText.text = currentCoins + "$";
 
@@ -74,7 +76,7 @@ public class CoinsVisualizator : MonoBehaviour
         }
         else if (moneyWadCount < _spawnedMoneyWads.Count)
         {
-            RemoveMoneyWadOnContainer(moneyWadCount);
+            RemoveMoneyWadOnContainer(moneyWadCount, disappearPoint);
         }
     }
 
@@ -91,13 +93,14 @@ public class CoinsVisualizator : MonoBehaviour
 
     private void StartUseTransport(string text)
     {
-        _moneyContainer.SetActive(false);
+        _animator.Play("DisappearAnimation");
         _coinsText.gameObject.SetActive(true);
     }
 
     private void ActivateText()
     {
         _moneyContainer.SetActive(true);
+        _animator.Play("AppearAnimation");
         _coinsText.gameObject.SetActive(true);
     }
 
@@ -110,31 +113,33 @@ public class CoinsVisualizator : MonoBehaviour
         _addMoney = StartCoroutine(AddMoneyWadTo(moneyWadCount));
     }
 
-    private void RemoveMoneyWadOnContainer(int moneyWadCount)
+    private void RemoveMoneyWadOnContainer(int moneyWadCount, Transform disappearPoint)
     {
         if (_addMoney != null)
             StopCoroutine(_addMoney);
         if (_removeMoney != null)
             StopCoroutine(_removeMoney);
-        _removeMoney = StartCoroutine(RemoveMoneyWadTo(moneyWadCount));
+        _removeMoney = StartCoroutine(RemoveMoneyWadTo(moneyWadCount, disappearPoint));
     }
 
     private void SpawnMoneyWad(Vector3 position)
     {
         MoneyWad moneyWad = Instantiate(_moneyWadPrefab, _moneyContainer.transform);
         moneyWad.transform.localPosition = position;
-        moneyWad.StartAppear(_spawnPoint);
+        moneyWad.ShowAppear(_spawnPoint);
         _spawnedMoneyWads.Add(moneyWad);
     }
 
-    private void DestroyMoneyWad(MoneyWad moneyWad)
+    private void RemoveMoneyWad(MoneyWad moneyWad, Transform disappearPoint)
     {
         _spawnedMoneyWads.Remove(moneyWad);
-        Destroy(moneyWad.gameObject);
+        moneyWad.ShowDisappear(disappearPoint);
     }
 
     private IEnumerator AddMoneyWadTo(int count)
     {
+        float deltaTime = _receiveMoneyDuration / (count - _spawnedMoneyWads.Count);
+        
         for (int i = _spawnedMoneyWads.Count; i < count; i++)
         {
             int index = _spawnedMoneyWads.Count % _placePoints.Length;
@@ -142,16 +147,18 @@ public class CoinsVisualizator : MonoBehaviour
             SpawnMoneyWad(_placePoints[index].transform.localPosition +
                           Vector3.up * _offsetY * (i / _placePoints.Length));
 
-            yield return new WaitForSeconds(_speedChangeMoney);
+            yield return new WaitForSeconds(deltaTime);
         }
     }
 
-    private IEnumerator RemoveMoneyWadTo(int count)
+    private IEnumerator RemoveMoneyWadTo(int count, Transform disappearPoint)
     {
+        float deltaTime = _spendMoneyDuration / (_spawnedMoneyWads.Count - count);
+        
         for (int i = _spawnedMoneyWads.Count; i > count; i--)
         {
-            DestroyMoneyWad(_spawnedMoneyWads[i - 1]);
-            yield return new WaitForSeconds(_speedChangeMoney / 4);
+            RemoveMoneyWad(_spawnedMoneyWads[i - 1], disappearPoint);
+            yield return new WaitForSeconds(deltaTime);
         }
     }
 }

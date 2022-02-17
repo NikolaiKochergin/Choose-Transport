@@ -72,9 +72,8 @@ public class Transport : MonoBehaviour
             if (player.IsHaveEnoughMoney(_price))
             {
                 _trigger.gameObject.SetActive(false);
-                player.StartUseTransport(this);
-                Activate();
                 StartedUse?.Invoke();
+                player.StartUseTransport(this, Activate);
             }
             else
             {

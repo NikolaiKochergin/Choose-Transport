@@ -94,7 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b10d1fc6711fc345abe914a55806e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _appearDuration: 0.5
+  _appearDuration: 0.3
+  _disappearDuration: 0.3
   _curve:
     serializedVersion: 2
     m_Curve:

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +9,7 @@ public class Wallet : MonoBehaviour
 
     public int Coins => _coins;
 
-    public event UnityAction<int> CoinsChanged;
+    public event UnityAction<int, Transform> CoinsChanged;
 
     private void OnEnable()
     {
@@ -36,7 +34,7 @@ public class Wallet : MonoBehaviour
         if (coins > 0)
         {
             _coins += coins;
-            CoinsChanged?.Invoke(_coins);
+            CoinsChanged?.Invoke(_coins, null);
         }
     }
 
@@ -47,13 +45,13 @@ public class Wallet : MonoBehaviour
         else
             _coins -= coins;
 
-        CoinsChanged?.Invoke(_coins);
+        CoinsChanged?.Invoke(_coins, null);
     }
 
-    private void OnTransportPurchased(int price)
+    private void OnTransportPurchased(Transport transport)
     {
-        _coins -= price;
+        _coins -= transport.Price;
 
-        CoinsChanged?.Invoke(_coins);
+        CoinsChanged?.Invoke(_coins, transport.transform);
     }
 }
