@@ -88,7 +88,7 @@ MonoBehaviour:
   _horizontalSpeed: 4
   _turnSpeed: 4
   _delay: 0
-  _delayBeforeStartUseAnimation: 1
+  _delayBeforeStartUseAnimation: 0.3
   _trigger: {fileID: 7946017650867204198}
   _nameOfPlayerUseAnimation: JumpToStep
   _seatPosition: {fileID: 2450609813665517097}

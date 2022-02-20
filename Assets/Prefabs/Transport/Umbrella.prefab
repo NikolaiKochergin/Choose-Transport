@@ -966,7 +966,7 @@ MonoBehaviour:
   _horizontalSpeed: 5
   _turnSpeed: 5
   _delay: 0
-  _delayBeforeStartUseAnimation: 1
+  _delayBeforeStartUseAnimation: 0.3
   _trigger: {fileID: 918659605898509733}
   _nameOfPlayerUseAnimation: UseUmbrella
   _seatPosition: {fileID: 8646991386780779325}

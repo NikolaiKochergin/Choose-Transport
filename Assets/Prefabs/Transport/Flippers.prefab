@@ -234,7 +234,7 @@ MonoBehaviour:
   _horizontalSpeed: 5
   _turnSpeed: 5
   _delay: 0
-  _delayBeforeStartUseAnimation: 1
+  _delayBeforeStartUseAnimation: 0.3
   _trigger: {fileID: 881715729394748879}
   _nameOfPlayerUseAnimation: Swim
   _seatPosition: {fileID: 881715729889915161}

@@ -348,7 +348,7 @@ MonoBehaviour:
   _horizontalSpeed: 5
   _turnSpeed: 5
   _delay: 0.435
-  _delayBeforeStartUseAnimation: 1
+  _delayBeforeStartUseAnimation: 0.3
   _trigger: {fileID: 3662170703349449208}
   _nameOfPlayerUseAnimation: JumpToCar
   _seatPosition: {fileID: 3662170705049965500}
